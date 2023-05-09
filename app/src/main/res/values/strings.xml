@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ChatGPT</string>
+    <string name="logo">Logo</string>
+    <string name="e_mail">E-mail</string>
+    <string name="C_e_mail">Confirmar E-mail</string>
+    <string name="senha">Senha</string>
+    <string name="regrasSenha">Sua senha deve conter no mínimo 8 caracteres, um caracter especial e um número</string>
+    <string name="login">Login</string>
+    <string name="usuario">Usuário</string>
+    <string name="cadastro">Não possui uma conta? Cadastre-se Aqui!</string>
+</resources>
