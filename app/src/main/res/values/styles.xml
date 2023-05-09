@@ -47,6 +47,10 @@
 
     </style>
 
+    <style name="Navbar">
+        <item name="android:background">@drawable/navbar_drawable</item>
+
+    </style>
         
     
 </resources>

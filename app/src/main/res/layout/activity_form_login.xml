@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_login"
         tools:context=".formLogin"
         android:id="@+id/tela">
 
-
+<!--login de teste: teste@teste senha 1234-->
         <ImageView
             android:id="@+id/logo"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/logo"
             android:layout_marginTop="40dp"
-            app:tint="@color/Purple"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/logo" />
+            android:contentDescription="@string/logo"
+            android:tint="@color/Purple"
+            tools:ignore="UseAppTint" />
 
         <View
             android:id="@+id/ContainerLoginComponents"
@@ -39,10 +39,11 @@
             android:id="@+id/unfocus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
 
@@ -74,6 +75,7 @@
             style="@style/BTNComponents"
             android:id="@+id/BTNlogin"
             android:text="@string/login"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="@id/ContainerLoginComponents"
             app:layout_constraintStart_toEndOf="@id/ContainerLoginComponents"
             app:layout_constraintTop_toBottomOf="@id/senha"
@@ -95,16 +97,15 @@
             android:id="@+id/tela_cadastro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/cadastro"
             android:textColor="@color/White_text"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="15dp"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ContainerLoginComponents"
-            android:layout_marginBottom="16dp" />
-
-
-
+            tools:ignore="TextSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
