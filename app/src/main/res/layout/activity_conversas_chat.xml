@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ConversasChat"
     android:background="@drawable/background_login"
@@ -24,17 +23,18 @@
             android:layout_height="60dp"
             android:background="@color/Purple"
             />
+
         <ImageButton
             android:id="@+id/my_image_button"
-            app:layout_constraintTop_toTopOf="@id/navbar"
-            app:layout_constraintStart_toStartOf="@id/navbar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/baseline_expand_more_24"
-            android:rotation="270"
             android:background="@color/Purple"
+            android:rotation="270"
+            android:src="@drawable/baseline_expand_more_24"
+            app:layout_constraintStart_toStartOf="@id/navbar"
+            app:layout_constraintTop_toTopOf="@id/navbar"
 
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAddConversa"
@@ -60,6 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:background="@color/Purple"
+            android:elevation="10dp"
+            android:layout_alignParentBottom="true"
             />
 
         <View
@@ -71,43 +73,48 @@
             app:layout_constraintBottom_toTopOf="@id/EndBar"
             android:layout_marginBottom="-75dp"
             android:background="@drawable/circle"
+            android:elevation="10dp"
+            android:layout_alignParentBottom="true"
             />
 
         <ImageButton
             android:id="@+id/trash"
-            app:layout_constraintBottom_toBottomOf="@id/EndBar"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/baseline_delete_24"
             android:background="@color/Purple"
+            android:src="@drawable/baseline_delete_24"
+            app:layout_constraintBottom_toBottomOf="@id/EndBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:translationZ="10dp"/>
 
-            />
         <ImageButton
             android:id="@+id/edit"
-            app:layout_constraintBottom_toBottomOf="@id/EndBar"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/baseline_create_24"
             android:background="@color/Purple"
+            android:src="@drawable/baseline_create_24"
+            app:layout_constraintBottom_toBottomOf="@id/EndBar"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:translationZ="10dp"/>
 
-            />
         <ImageButton
             android:id="@+id/add"
-            app:layout_constraintStart_toStartOf="@id/circle"
-            app:layout_constraintTop_toTopOf="@id/circle"
-            app:layout_constraintBottom_toBottomOf="@id/circle"
-            app:layout_constraintEnd_toEndOf="@id/circle"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/baseline_add_24"
             android:background="@color/Purple"
-            />
+            android:src="@drawable/baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="@id/circle"
+            app:layout_constraintEnd_toEndOf="@id/circle"
+            app:layout_constraintStart_toStartOf="@id/circle"
+            app:layout_constraintTop_toTopOf="@id/circle"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:translationZ="10dp"/>
 
 
 
