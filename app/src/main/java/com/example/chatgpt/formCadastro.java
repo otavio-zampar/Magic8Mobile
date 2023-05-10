@@ -1,4 +1,4 @@
-package com.example.chatgpt;
+package com.example.chatgptformobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
