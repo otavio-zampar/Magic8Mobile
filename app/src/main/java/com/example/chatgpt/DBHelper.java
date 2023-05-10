@@ -1,5 +1,4 @@
-package com.example.chatgpt;
-
+package com.example.atv04_04;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -68,10 +67,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean checkSenha(String mail, String senha) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        Cursor cursor = MyDB.rawQuery("select * from users where email = ? and senha = ?", new String[]{mail, senha});
-        return cursor.getCount() > 0;
+            Cursor cursor = MyDB.rawQuery("select * from users where email = ? and senha = ?", new String[]{mail, senha});
+            return cursor.getCount() > 0;
     }
 }
-
 
 
