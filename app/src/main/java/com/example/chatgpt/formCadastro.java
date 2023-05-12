@@ -1,4 +1,4 @@
-package
+package com.example.chatgpt;
 
 import androidx.appcompat.app.AppCompatActivity;
 

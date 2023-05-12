@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">Meu app</string>
+    <string name="app_name">ChatGPT</string>
+    <string name="enter">aa</string>
+    <string name="chat_title">uhn</string>
+    <string name="message_hint">111</string>
+    <string name="regrasSenha">aaaaaaaaaaa</string>
+    <string name="e_mail">aaaaaaaaas</string>
+    <string name="usuario">vvvvvvvvvvvv</string>
+    <string name="C_e_mail">ggggggggggg</string>
+    <string name="senha">riririr</string>
+    <string name="logo">vvv</string>
+    <string name="login">aaaaaaa</string>
+    <string name="cadastro">ggggggggggg</string>
 </resources>

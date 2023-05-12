@@ -1,3 +1,5 @@
+package com.example.chatgpt;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
