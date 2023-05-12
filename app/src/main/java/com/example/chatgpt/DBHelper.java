@@ -1,5 +1,3 @@
-package com.example.atv04_04;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

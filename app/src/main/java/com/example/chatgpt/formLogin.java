@@ -1,5 +1,3 @@
-package com.example.chatgptformobile;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
