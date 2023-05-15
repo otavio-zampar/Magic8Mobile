@@ -1,15 +1,16 @@
 package com.example.chatgpt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 
 public class ConversasChat extends AppCompatActivity {
@@ -36,11 +37,12 @@ public class ConversasChat extends AppCompatActivity {
 
     @SuppressLint("ResourceType")
     protected void createButton(AppCompatButton btnNovaConversa, ConstraintLayout parentLayout) {
-        AppCompatButton newButton = new AppCompatButton(getApplicationContext());
+        ContextThemeWrapper newContext = new ContextThemeWrapper(getApplicationContext(), R.style.BTNComponents);
+        AppCompatButton newButton = new AppCompatButton(newContext);
         newButton.setId(View.generateViewId());
-        newButton.setText("New Button");
-        newButton.setBackgroundResource(R.drawable.btn_components);
-        newButton.setTextColor(Color.parseColor(getResources().getString(R.color.White_text)));
+        newButton.setText("Nova Conversa");
+        newButton.setGravity(Gravity.CENTER);
+
 
         // Set the constraints for the new button
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
@@ -51,6 +53,9 @@ public class ConversasChat extends AppCompatActivity {
         // Set constraints for the button within the ConstraintLayout
         layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+        int dp25 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
+        int dp5 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
+        layoutParams.setMargins(dp25, dp5, dp25, 0);
 
         if (lastButtonId != View.NO_ID) {
             layoutParams.topToBottom = lastButtonId;
@@ -69,7 +74,9 @@ public class ConversasChat extends AppCompatActivity {
         // Update the constraints for btnNovaConversa
         ConstraintLayout.LayoutParams newLayoutParams = (ConstraintLayout.LayoutParams) btnNovaConversa.getLayoutParams();
         newLayoutParams.topToBottom = lastButtonId;
+        newLayoutParams.topMargin = dp5;
         btnNovaConversa.setLayoutParams(newLayoutParams);
     }
+
 
 }
