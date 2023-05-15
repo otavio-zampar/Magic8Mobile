@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 public class ConversasChat extends AppCompatActivity {
@@ -19,6 +22,7 @@ public class ConversasChat extends AppCompatActivity {
         ImageButton imgAdd = findViewById(R.id.add);
         ConstraintLayout parentLayout = findViewById(R.id.parentLayout);
 
+
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,11 +34,13 @@ public class ConversasChat extends AppCompatActivity {
 
     private int lastButtonId = View.NO_ID;  // Store the ID of the last created button
 
+    @SuppressLint("ResourceType")
     protected void createButton(AppCompatButton btnNovaConversa, ConstraintLayout parentLayout) {
         AppCompatButton newButton = new AppCompatButton(getApplicationContext());
         newButton.setId(View.generateViewId());
         newButton.setText("New Button");
-        newButton.setBackground(getDrawable(R.drawable.btn_components));
+        newButton.setBackgroundResource(R.drawable.btn_components);
+        newButton.setTextColor(Color.parseColor(getResources().getString(R.color.White_text)));
 
         // Set the constraints for the new button
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
