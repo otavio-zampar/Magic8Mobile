@@ -77,6 +77,3 @@ public class ConversasChat extends AppCompatActivity {
         newLayoutParams.topMargin = dp5;
         btnNovaConversa.setLayoutParams(newLayoutParams);
     }
-
-
-}
