@@ -1,10 +1,14 @@
 package com.example.chatgpt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -19,6 +23,7 @@ public class ConversasChat extends AppCompatActivity {
         ImageButton imgAdd = findViewById(R.id.add);
         ConstraintLayout parentLayout = findViewById(R.id.parentLayout);
 
+
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,49 +33,16 @@ public class ConversasChat extends AppCompatActivity {
 
     }
 
-
-//    protected void createButton(AppCompatButton btnNovaConversa, ConstraintLayout parentLayout){
-//
-//        AppCompatButton newButton = new AppCompatButton(getApplicationContext());
-//        newButton.setId(View.generateViewId());
-//        newButton.setText("New Button");
-//        newButton.setBackground(getDrawable(R.drawable.btn_components));
-//
-//
-//        // Set the constraints for the new button
-//        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
-//                ConstraintLayout.LayoutParams.PARENT_ID,
-//                ConstraintLayout.LayoutParams.WRAP_CONTENT
-//        );
-//
-//        // Set constraints for the button within the ConstraintLayout
-//        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;  // Align the button's left edge to the parent's left edge
-//        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-//        layoutParams.topToBottom = R.id.navbar;
-//
-//        newButton.setLayoutParams(layoutParams);
-//
-//        // Add the new button to the layout
-//        parentLayout.addView(newButton);
-//
-//        ConstraintLayout.LayoutParams newLayoutParams = new ConstraintLayout.LayoutParams(
-//                ConstraintLayout.LayoutParams.PARENT_ID,
-//                ConstraintLayout.LayoutParams.WRAP_CONTENT
-//        );
-//        newLayoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;  // Align the button's left edge to the parent's left edge
-//        newLayoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-//        newLayoutParams.topToBottom = newButton.getId();
-//        btnNovaConversa.setLayoutParams(newLayoutParams);
-//
-//    }
-
     private int lastButtonId = View.NO_ID;  // Store the ID of the last created button
 
+    @SuppressLint("ResourceType")
     protected void createButton(AppCompatButton btnNovaConversa, ConstraintLayout parentLayout) {
-        AppCompatButton newButton = new AppCompatButton(getApplicationContext());
+        ContextThemeWrapper newContext = new ContextThemeWrapper(getApplicationContext(), R.style.BTNComponents);
+        AppCompatButton newButton = new AppCompatButton(newContext);
         newButton.setId(View.generateViewId());
-        newButton.setText("New Button");
-        newButton.setBackground(getDrawable(R.drawable.btn_components));
+        newButton.setText("Nova Conversa");
+        newButton.setGravity(Gravity.CENTER);
+
 
         // Set the constraints for the new button
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
@@ -81,6 +53,9 @@ public class ConversasChat extends AppCompatActivity {
         // Set constraints for the button within the ConstraintLayout
         layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
         layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+        int dp25 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
+        int dp5 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
+        layoutParams.setMargins(dp25, dp5, dp25, 0);
 
         if (lastButtonId != View.NO_ID) {
             layoutParams.topToBottom = lastButtonId;
@@ -99,8 +74,6 @@ public class ConversasChat extends AppCompatActivity {
         // Update the constraints for btnNovaConversa
         ConstraintLayout.LayoutParams newLayoutParams = (ConstraintLayout.LayoutParams) btnNovaConversa.getLayoutParams();
         newLayoutParams.topToBottom = lastButtonId;
+        newLayoutParams.topMargin = dp5;
         btnNovaConversa.setLayoutParams(newLayoutParams);
     }
-
-}
-

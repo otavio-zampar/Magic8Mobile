@@ -1,4 +1,4 @@
-package com.example.atv04_04;
+package com.example.chatgpt;
 
 import android.content.ContentValues;
 import android.content.Context;

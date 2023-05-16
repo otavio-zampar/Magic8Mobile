@@ -60,6 +60,7 @@
             android:id="@+id/send_button"
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:textColor="@color/White_text"
             android:colorText="@color/white"
             android:text="@string/enter" />
 
