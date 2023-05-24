@@ -13,8 +13,5 @@
     <string name="login">Login</string>
     <string name="usuario">Usuário</string>
     <string name="cadastro">Não possui uma conta? Cadastre-se Aqui!</string>
-    <string name="app_name">ChatGPTMobile</string>
-    <string name="enter">Enviar</string>
-    <string name="chat_title">Exemplo123</string>
-    <string name="message_hint">Digite a sua mensagem: </string>
+
 </resources>

@@ -9,10 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ConversasChat"
-    android:background="@drawable/background_login"
-        android:id="@+id/parentLayout">
+        android:layout_height="match_parent"
+        tools:context=".ConversasChat"
+        android:background="@drawable/background_login">
 
         <View
             android:id="@+id/navbar"
@@ -22,35 +21,178 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/Purple"
+            android:foregroundGravity="top"
             />
 
+        <TextView
+            android:id="@+id/textviewuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/navbar"
+            app:layout_constraintBottom_toBottomOf="@id/navbar">
+        </TextView>
+
+        <View
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.6"
+            android:layout_height="match_parent"
+            android:id="@+id/sidebarContainer"
+            app:layout_constraintRight_toLeftOf="parent"
+            android:visibility="invisible"
+            android:elevation="100dp"
+            android:background="@color/Purple"/>
+
         <ImageButton
-            android:id="@+id/my_image_button"
+            android:id="@+id/imgIcon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_baseline_person_24"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_border"
+            app:layout_constraintLeft_toLeftOf="@id/sidebarContainer"
+            app:layout_constraintRight_toRightOf="@id/sidebarContainer"
+            app:layout_constraintTop_toTopOf="@id/sidebarContainer"
+            android:visibility="invisible"
+            android:elevation="101dp"
+            />
+        <View
+            android:id="@+id/imgIconBorder"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_border2"
+            app:layout_constraintLeft_toLeftOf="@id/sidebarContainer"
+            app:layout_constraintRight_toRightOf="@id/sidebarContainer"
+            app:layout_constraintTop_toTopOf="@id/sidebarContainer"
+            android:visibility="invisible"
+            android:elevation="102dp"/>
+
+        <TextView
+            android:id="@+id/titulo"
+            app:layout_constraintLeft_toLeftOf="@id/imgIcon"
+            app:layout_constraintRight_toRightOf="@id/imgIcon"
+            app:layout_constraintTop_toBottomOf="@id/imgIcon"
+            style="@style/textWhiteComponents"
+            android:elevation="101dp"
+            android:text="EDITAR USUÁRIO"/>
+
+            <TextView
+                android:id="@+id/textEditNome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/titulo"
+                app:layout_constraintRight_toRightOf="@id/titulo"
+                app:layout_constraintTop_toBottomOf="@id/titulo"
+                style="@style/textWhiteComponents"
+                android:elevation="101dp"
+                android:text="Editar Nome:"/>
+
+            <EditText
+                android:id="@+id/editNome"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintLeft_toLeftOf="@id/textEditNome"
+                app:layout_constraintRight_toRightOf="@id/textEditNome"
+                app:layout_constraintTop_toBottomOf="@id/textEditNome"
+                style="@style/textComponents"
+                android:elevation="101dp"
+                android:hint="Nome..."/>
+
+        <TextView
+            android:id="@+id/textEditSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/editNome"
+            app:layout_constraintRight_toRightOf="@id/editNome"
+            app:layout_constraintTop_toBottomOf="@id/editNome"
+            style="@style/textWhiteComponents"
+            android:elevation="101dp"
+            android:text="Editar senha:"/>
+
+        <EditText
+            android:id="@+id/editSenha"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@id/textEditSenha"
+            app:layout_constraintRight_toRightOf="@id/textEditSenha"
+            app:layout_constraintTop_toBottomOf="@id/textEditSenha"
+            style="@style/textComponents"
+            android:elevation="101dp"
+            android:hint="Senha nova..."/>
+        <EditText
+            android:id="@+id/ConfirmarSenha"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@id/editSenha"
+            app:layout_constraintRight_toRightOf="@id/editSenha"
+            app:layout_constraintTop_toBottomOf="@id/editSenha"
+            style="@style/textComponents"
+            android:elevation="101dp"
+            android:hint="Senha Antiga..."/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/BTNconfirmarEdit"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ConfirmarSenha"
+            app:layout_constraintRight_toRightOf="@id/ConfirmarSenha"
+            app:layout_constraintTop_toBottomOf="@id/ConfirmarSenha"
+            android:layout_marginTop="20dp"
+            style="@style/BTNComponents"
+            android:visibility="visible"
+            android:stateListAnimator="@null"
+            android:elevation="101dp"
+            android:textSize="18sp"
+            android:text="Confirmar"/>
+
+        <ImageButton
+            android:id="@+id/imgSidebar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@color/Purple"
+            android:background="@drawable/circle"
             android:rotation="270"
             android:src="@drawable/baseline_expand_more_24"
             app:layout_constraintStart_toStartOf="@id/navbar"
             app:layout_constraintTop_toTopOf="@id/navbar"
-
             tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAddConversa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/BTNComponents"
-        android:textColor="@color/White_text"
-        android:gravity="center"
-        android:text="Nova Conversa"
-        android:drawableRight="@drawable/baseline_add_24"
-        android:drawableTint="@color/White_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navbar"
-     />
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/navbar"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/parentLayout">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddConversa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/BTNComponents"
+                    android:textColor="@color/White_text"
+                    android:gravity="center"
+                    android:text="Nova Conversa"
+                    android:drawableRight="@drawable/baseline_add_24"
+                    android:drawableTint="@color/White_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/navbar"
+                 />
+            </LinearLayout>
+        </ScrollView>
 
         <View
             android:id="@+id/EndBar"
@@ -58,8 +200,9 @@
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:background="@color/Purple"
+
             android:elevation="10dp"
             android:layout_alignParentBottom="true"
             />
@@ -71,7 +214,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/EndBar"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/circle"
             android:elevation="10dp"
             android:layout_alignParentBottom="true"
@@ -115,10 +258,6 @@
             app:layout_constraintTop_toTopOf="@id/circle"
             tools:ignore="SpeakableTextPresentCheck"
             android:translationZ="10dp"/>
-
-
-
-
 
 
 

@@ -3,77 +3,305 @@ package com.example.chatgpt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+//import android.util.DisplayMetrics;
+import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 
 public class ConversasChat extends AppCompatActivity {
 
+//    public static final String DBNAME = "GPTMobile.db";
+    private View sidebarContainer, imgIconBorder;
+    private ImageButton imgOpen, imgIcon;
+
+    private TextView titulo, txtEdNome, txtEdSenha;
+    private EditText editNome, editSenha, confirmarSenha;
+    private AppCompatButton confirmaEdit;
+    private boolean sidebarOpen = false;
+
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+//    private final int screenWidth = displayMetrics.widthPixels;
+//    private final int screenHeight = displayMetrics.heightPixels;
+    private int Nconversas = 0;
+    private Bitmap yourSelectedImage;
+
+    private void getSidebarIds(){
+        imgOpen = findViewById(R.id.imgSidebar);
+        imgIconBorder = findViewById(R.id.imgIconBorder);
+        sidebarContainer = findViewById(R.id.sidebarContainer);
+        titulo = findViewById(R.id.titulo);
+        txtEdNome = findViewById(R.id.textEditNome);
+        txtEdSenha = findViewById(R.id.textEditSenha);
+        confirmarSenha = findViewById(R.id.ConfirmarSenha);
+        confirmaEdit = findViewById(R.id.BTNconfirmarEdit);
+        editSenha = findViewById(R.id.editSenha);
+        editNome = findViewById(R.id.editNome);
+        imgIcon = findViewById(R.id.imgIcon);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        String userEMail = intent.getStringExtra("userEmail");
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_conversas_chat);
         AppCompatButton btnNovaConversa = findViewById(R.id.btnAddConversa);
+        TextView userName = findViewById(R.id.textviewuser);
         ImageButton imgAdd = findViewById(R.id.add);
-        ConstraintLayout parentLayout = findViewById(R.id.parentLayout);
+        ImageButton imgDel = findViewById(R.id.trash);
 
+        ImageButton imgEdit = findViewById(R.id.edit);
+        LinearLayout parentLayout = findViewById(R.id.parentLayout);
+        try {
+            getSidebarIds();
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Uh Oh, algo deu errado na sidebar!", Toast.LENGTH_SHORT).show();
+        }
+        DBHelper DB = new DBHelper(getApplicationContext());
+        int UserID = DB.getID(userEMail);
 
-        imgAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createButton(btnNovaConversa, parentLayout);
+//        if (DB.checkBitmap(UserID)) {
+//            imgIcon.setImageBitmap(DB.getBitmap(UserID));
+//        }
+        if (!userEMail.isEmpty()) {
+            userName.setText(DB.getUsername(userEMail));
+        } else{
+            userName.setText("False ID");
+        }
+
+        // for every row in DB create a button and increment to Nconversas with name "conversas(nome)"
+        for (int i = 0; i < DB.getConversaRows(UserID); i = i+1){
+            AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
+            NewButton.setText(DB.getCvsName(UserID, i));
+            Nconversas = i;
+//            Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
+        }
+
+        imgEdit.setOnClickListener(view -> {
+            Nconversas= Nconversas+1;
+            DB.insertConversas(UserID, ("aaa " + Nconversas), "ccccccccccc");
+        });
+
+        imgAdd.setOnClickListener(v -> {
+            if (Nconversas <= 7) {
+                Nconversas = Nconversas+1;
+                int IDButton = createButton(btnNovaConversa, parentLayout);
+            }else{
+                Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
             }
         });
 
+        imgOpen.setOnClickListener(view -> openSidebar());
+
+        imgDel.setOnClickListener(view -> {
+            if (DB.nuke(1)){
+                Toast.makeText(imgDel.getContext(), "Apagado todas as conversas", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(imgDel.getContext(), "Erro ao deletar Todas as Linhas do banco... YAY", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnNovaConversa.setOnClickListener(view -> {
+            if (Nconversas <= 9) {
+                int IDButton = createButton(btnNovaConversa, parentLayout);
+            }else{
+                Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        confirmaEdit.setOnClickListener(view -> {
+            if (!editSenha.getText().toString().equals("") && !confirmarSenha.getText().toString().equals("")) {
+                if (DB.checkSenha(confirmarSenha.getText().toString())) {
+                    DB.editSenha(UserID, editSenha.getText().toString());
+                    Toast.makeText(getApplicationContext(), "Senha editada com sucesso.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Não foi possível editar a senha", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            if (!editNome.getText().toString().equals("")){
+                DB.editUN(UserID, editNome.getText().toString());
+                Toast.makeText(getApplicationContext(), "Usuário editado com sucesso.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        imgIcon.setOnClickListener(view -> {
+            Intent i = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            final int ACTIVITY_SELECT_IMAGE = 1234;
+            startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
+        });
     }
 
-    private int lastButtonId = View.NO_ID;  // Store the ID of the last created button
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
 
-    @SuppressLint("ResourceType")
-    protected void createButton(AppCompatButton btnNovaConversa, ConstraintLayout parentLayout) {
+        switch(requestCode) {
+            case 1234:
+                if(resultCode == RESULT_OK){
+                    DBHelper DB = new DBHelper(getApplicationContext());
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String filePath = cursor.getString(columnIndex);
+                    cursor.close();
+
+
+                    yourSelectedImage = BitmapFactory.decodeFile(filePath);
+
+                    int desiredWidth = 1;
+                    int desiredHeight = 1;
+                    int StartX = 1;
+                    int StartY = 1;
+                    if(yourSelectedImage.getWidth() < yourSelectedImage.getHeight()){
+                    desiredWidth = yourSelectedImage.getWidth();
+                    desiredHeight = yourSelectedImage.getWidth();
+                    StartX = 0;
+                    StartY = 0;
+                    }else{
+                        desiredWidth = yourSelectedImage.getHeight();
+                        desiredHeight = yourSelectedImage.getHeight();
+                        StartX = 0;
+                        StartY = 0;
+                    }
+
+                    Bitmap croppedBitmap = Bitmap.createBitmap(yourSelectedImage, StartX, StartY, desiredWidth, desiredHeight);
+
+                    imgIcon.setImageBitmap(croppedBitmap);
+//                    if (DB.addEntry(DBHelper.getBitmapAsByteArray(yourSelectedImage))){
+//                        Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
+//                    }
+                }
+        }
+
+    };
+
+    @SuppressLint({"ResourceType", "DefaultLocale"})
+    protected int createButton(AppCompatButton btnNovaConversa, LinearLayout parentLayout) {
         ContextThemeWrapper newContext = new ContextThemeWrapper(getApplicationContext(), R.style.BTNComponents);
         AppCompatButton newButton = new AppCompatButton(newContext);
         newButton.setId(View.generateViewId());
-        newButton.setText("Nova Conversa");
+        newButton.setText(String.format("Nova Conversa #%d", Nconversas));
         newButton.setGravity(Gravity.CENTER);
 
-
-        // Set the constraints for the new button
-        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
         );
 
-        // Set constraints for the button within the ConstraintLayout
-        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
-        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
         int dp25 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
-        int dp5 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
+        int dp5 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
+
         layoutParams.setMargins(dp25, dp5, dp25, 0);
-
-        if (lastButtonId != View.NO_ID) {
-            layoutParams.topToBottom = lastButtonId;
-        } else {
-            layoutParams.topToBottom = R.id.navbar;
-        }
-
         newButton.setLayoutParams(layoutParams);
-
-        // Add the new button to the layout
-        parentLayout.addView(newButton);
-
-        // Update the ID of the last created button
-        lastButtonId = newButton.getId();
-
-        // Update the constraints for btnNovaConversa
-        ConstraintLayout.LayoutParams newLayoutParams = (ConstraintLayout.LayoutParams) btnNovaConversa.getLayoutParams();
-        newLayoutParams.topToBottom = lastButtonId;
+        parentLayout.addView(newButton, 0);
+        LinearLayout.LayoutParams newLayoutParams = (LinearLayout.LayoutParams) btnNovaConversa.getLayoutParams();
         newLayoutParams.topMargin = dp5;
         btnNovaConversa.setLayoutParams(newLayoutParams);
+
+        return newButton.getId();
     }
+
+    public void openSidebar() {
+        if (sidebarOpen) {
+            sidebarContainer.setVisibility(View.VISIBLE);
+            closeSidebar();
+        } else {
+            sidebarContainer.setVisibility(View.INVISIBLE);
+            openSidebar2();
+        }
+    }
+
+    private void openSidebar2() {
+        setVisibility(1); // changes everything in the sidebar to visible
+        sidebarContainer.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        imgOpen.animate().translationX(sidebarContainer.getWidth()).setDuration(300).rotation(90).setListener(null);
+        imgIconBorder.animate().translationX(sidebarContainer.getWidth()).setDuration(300).rotation(90).setListener(null);
+        titulo.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        editNome.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        editSenha.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        confirmarSenha.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        txtEdNome.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        txtEdSenha.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        confirmaEdit.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        imgIcon.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        sidebarOpen = true;
+    }
+
+    private void closeSidebar() {
+        sidebarContainer.animate()
+                .translationX(-sidebarContainer.getWidth())
+                .setDuration(300)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        setVisibility(0); // changes everything in the sidebar to gone
+                        sidebarOpen = false;
+                    }
+                });
+        imgOpen.animate().translationX(0).setDuration(300).rotation(270).setListener(null);
+        imgIconBorder.animate().translationX(0).setDuration(300).rotation(270).setListener(null);
+        titulo.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        editNome.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        editSenha.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        confirmarSenha.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        txtEdSenha.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        txtEdNome.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        confirmaEdit.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        imgIcon.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+
+    }
+
+    private void setVisibility(int view){
+        int change = -1;
+        switch (view){
+            case 0:
+                change = View.GONE;
+                break;
+            case 1:
+                change = View.VISIBLE;
+                break;
+            default:
+                break;
+        }
+        sidebarContainer.setVisibility(change);
+        imgIconBorder.setVisibility(change);
+        titulo.setVisibility(change);
+        editNome.setVisibility(change);
+        editSenha.setVisibility(change);
+        confirmaEdit.setVisibility(change);
+        confirmarSenha.setVisibility(change);
+        txtEdSenha.setVisibility(change);
+        txtEdNome.setVisibility(change);
+        imgIcon.setVisibility(change);
+    }
+
+}
