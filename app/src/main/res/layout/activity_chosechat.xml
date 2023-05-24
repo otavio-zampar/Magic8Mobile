@@ -10,14 +10,14 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray">
+        android:background="@color/Gray_text">
 
         <!-- Botão de Voltar -->
         <ImageButton
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/White_text"
             android:src="@drawable/ic_back_arrow"/>
 
         <!-- Título da Conversa -->
@@ -26,7 +26,7 @@
             android:layout_width="387dp"
             android:layout_height="match_parent"
             android:text="@string/chat_title"
-            android:textColor="@color/white" />
+            android:textColor="@color/White_text" />
 
     </LinearLayout>
 
@@ -34,7 +34,7 @@
     <ListView
         android:id="@+id/message_list"
         android:layout_width="match_parent"
-        android:textColor="@color/white"
+        android:textColor="@color/White_text"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
@@ -44,7 +44,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/light_gray">
+        android:background="@color/Gray_highlight">
 
         <!-- Campo de Texto de Entrada -->
         <EditText
@@ -60,7 +60,7 @@
             android:id="@+id/send_button"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:colorText="@color/white"
+            android:textColor="@color/White_text"
             android:text="@string/enter" />
 
     </LinearLayout>

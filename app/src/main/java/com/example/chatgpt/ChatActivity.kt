@@ -1,41 +1,47 @@
-package com.example.chatgpt
-
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
-import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_chat.*
+import com.example.chatgpt.R
 
 class ChatActivity : AppCompatActivity() {
+    private lateinit var backButton: ImageButton
+    private lateinit var chatTitle: TextView
+    private lateinit var messageList: ListView
+    private lateinit var messageInput: EditText
+    private lateinit var sendButton: Button
 
-    private val messageList: ArrayList<String> = ArrayList()
-    private lateinit var messageAdapter: ArrayAdapter<String>
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        // Configurar o adaptador para a lista de mensagens
-        messageAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, messageList)
-        messageListView.adapter = messageAdapter
+        backButton = findViewById(R.id.back_button)
+        chatTitle = findViewById(R.id.chat_title)
+        messageList = findViewById(R.id.message_list)
+        messageInput = findViewById(R.id.message_input)
+        sendButton = findViewById(R.id.send_button)
 
-        // Configurar o clique do botão de envio
+        backButton.setOnClickListener {
+            finish()
+        }
+
         sendButton.setOnClickListener {
             val message = messageInput.text.toString()
             if (message.isNotEmpty()) {
-                addMessage(message)
+                // Aqui você pode implementar a lógica para enviar a mensagem
+                // e atualizar a lista de mensagens exibida na tela.
+                // Por exemplo, você pode adicionar a mensagem à lista de mensagens
+                // e notificar o adaptador para atualizar a exibição.
+                // messageList.adapter.notifyDataSetChanged()
+
+                // Limpar o campo de entrada de mensagens
                 messageInput.text.clear()
             }
         }
-
-        // Configurar o clique do botão de voltar
-        backButton.setOnClickListener {
-            onBackPressed()
-        }
-    }
-
-    private fun addMessage(message: String) {
-        messageList.add(message)
-        messageAdapter.notifyDataSetChanged()
     }
 }

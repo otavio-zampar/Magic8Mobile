@@ -3,4 +3,9 @@
     <string name="enter">Enviar</string>
     <string name="chat_title">Exemplo123</string>
     <string name="message_hint">Digite a sua mensagem: </string>
+    <string name="regrasSenha">Senha</string>
+    <string name="usuario">Usuario</string>
+    <string name="e_mail">Email</string>
+    <string name="C_e_mail">C_email</string>
+    <string name="senha">Senha</string>
 </resources>
