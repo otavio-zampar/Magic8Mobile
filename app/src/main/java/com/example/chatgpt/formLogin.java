@@ -32,7 +32,7 @@ public class formLogin extends AppCompatActivity {
         setContentView(R.layout.activity_form_login);
 
         getSupportActionBar().hide();
-        IniciarComponentes();
+        text_tela_cadastro = (TextView) findViewById(R.id.tela_cadastro);
 
 
         // muda a sombra para algo mais suave
@@ -52,10 +52,11 @@ public class formLogin extends AppCompatActivity {
                 if (mai.equals("") || pass.equals("")){
                     Toast.makeText(formLogin.this, "verifique que nao existem espacos vazios", Toast.LENGTH_SHORT).show();
                 }else {
-                    boolean checkPass = DB.checkSenha(mai, pass);
+                    boolean checkPass = DB.checkLogin(mai, pass);
                     if (checkPass == true){
                         Toast.makeText(formLogin.this, "logado com sucesso", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), ConversasChat.class);
+                        intent.putExtra("userEmail", mai);
                         startActivity(intent);
                     }else{
                         Toast.makeText(formLogin.this, "Email ou senha nao condizem", Toast.LENGTH_SHORT).show();
@@ -109,12 +110,6 @@ public class formLogin extends AppCompatActivity {
                 return false;
             }
         });
-
-    }
-
-    private void IniciarComponentes(){
-        text_tela_cadastro = (TextView) findViewById(R.id.tela_cadastro);
-
 
     }
 }

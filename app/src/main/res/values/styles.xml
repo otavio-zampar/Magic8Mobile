@@ -25,7 +25,7 @@
         <item name="android:layout_marginRight">25dp</item>
         <item name="android:background">@drawable/text_components</item>
         <item name="android:textColor">@color/black_text</item>
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColorHint">@color/Gray_text</item>
         <item name="android:layout_marginTop">10dp</item>
 
@@ -48,7 +48,17 @@
 
     <style name="Navbar">
         <item name="android:background">@drawable/navbar_drawable</item>
+    </style>
 
+    <style name="textWhiteComponents">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:visibility">invisible</item> <!--  set to invisible later -->
+        <item name="maxLines">1</item>
+        <item name="android:textColor">@color/White_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginTop">10dp</item>
     </style>
         
     
