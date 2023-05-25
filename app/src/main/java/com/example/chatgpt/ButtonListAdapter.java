@@ -1,4 +1,4 @@
-package com.example.chatgptformobile;
+package com.example.chatgpt;
 
 public class ButtonListAdapter extends RecyclerView.Adapter<ButtonListAdapter.ViewHolder> {
 
