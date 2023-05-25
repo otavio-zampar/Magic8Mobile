@@ -40,7 +40,7 @@ public class ConversasChat extends AppCompatActivity {
     private AppCompatButton confirmaEdit;
     private boolean sidebarOpen = false;
 
-    DisplayMetrics displayMetrics = new DisplayMetrics();
+//    DisplayMetrics displayMetrics = new DisplayMetrics();
 //    private final int screenWidth = displayMetrics.widthPixels;
 //    private final int screenHeight = displayMetrics.heightPixels;
     private int Nconversas = 0;
@@ -93,10 +93,17 @@ public class ConversasChat extends AppCompatActivity {
         }
 
         // for every row in DB create a button and increment to Nconversas with name "conversas(nome)"
-        for (int i = 0; i < DB.getConversaRows(UserID); i = i+1){
+        for (int id = 0; id < DB.getConversaRows(UserID); id = id+1){
             AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
-            NewButton.setText(DB.getCvsName(UserID, i));
-            Nconversas = i;
+            NewButton.setText(DB.getCvsName(UserID, id));
+            final int id2 = id;
+            NewButton.setOnClickListener(view -> {
+                Intent i = new Intent(getApplicationContext(), chat.class);
+                i.putExtra("ConvID", String.valueOf(id2));
+                startActivity(i);
+            });
+
+            Nconversas = id;
 //            Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
         }
 
@@ -108,7 +115,13 @@ public class ConversasChat extends AppCompatActivity {
         imgAdd.setOnClickListener(v -> {
             if (Nconversas <= 7) {
                 Nconversas = Nconversas+1;
-                int IDButton = createButton(btnNovaConversa, parentLayout);
+                AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
+                NewButton.setOnClickListener(view -> {
+                    Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), chat.class);
+                    i.putExtra("ConvID", "Nova Conversa");
+                    startActivity(i);
+                });
             }else{
                 Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
             }
@@ -126,7 +139,15 @@ public class ConversasChat extends AppCompatActivity {
 
         btnNovaConversa.setOnClickListener(view -> {
             if (Nconversas <= 9) {
-                int IDButton = createButton(btnNovaConversa, parentLayout);
+                AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
+
+                NewButton.setOnClickListener(View -> {
+                    Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), chat.class);
+                    i.putExtra("ConvID", "Nova Conversa");
+                    startActivity(i);
+                });
+
             }else{
                 Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
             }
@@ -163,7 +184,7 @@ public class ConversasChat extends AppCompatActivity {
         switch(requestCode) {
             case 1234:
                 if(resultCode == RESULT_OK){
-                    DBHelper DB = new DBHelper(getApplicationContext());
+//                    DBHelper DB = new DBHelper(getApplicationContext());
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
 

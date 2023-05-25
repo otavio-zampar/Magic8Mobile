@@ -12,26 +12,26 @@
         android:theme="@style/Theme.ChatGPT"
         tools:targetApi="31">
         <activity
+            android:name=".chat"
+            android:exported="false" />
+        <activity
             android:name=".formLogin"
-            android:theme="@style/Theme.AppCompat"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".formCadastro"
-            android:theme="@style/Theme.AppCompat"
-            android:exported="true">
-        </activity>
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat"></activity>
         <activity
             android:name=".ConversasChat"
-            android:theme="@style/Theme.AppCompat"
-            android:exported="true">
-        </activity>
-
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat"></activity>
     </application>
 
 </manifest>

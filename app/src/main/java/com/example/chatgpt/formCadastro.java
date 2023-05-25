@@ -58,28 +58,16 @@ public class formCadastro extends AppCompatActivity {
                     }
 
                 }
-            }
         });
 
-        senha.setOnTouchListener(view -> {
-                final int DRAWABLE_RIGHT = 2;
-                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if(motionEvent.getRawX() >= (senha.getRight() - senha.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-
-                        if (a == 0){
+        senha.setOnClickListener(view ->{
+                        if (a == 0) {
                             senha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                             a = 1;
-                        }else{
+                        } else {
                             senha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                             a = 0;
                         }
-
-
-                        return true;
-                    }
-                }
-                return false;
-            }
         });
 
     }
