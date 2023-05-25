@@ -1,6 +1,7 @@
-package com.example.chatgptformobile;
+package com.example.chatgpt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 public class formCadastro extends AppCompatActivity {
 
     EditText UserN, email, senha;
-    Button BTNcadastro;
+    AppCompatButton BTNcadastro;
     int a = 0;
 
 
@@ -27,28 +28,27 @@ public class formCadastro extends AppCompatActivity {
         getSupportActionBar().hide();
 
 
-        UserN = (EditText) findViewById(R.id.UserN);
-        email = (EditText) findViewById(R.id.email);
-        senha = (EditText) findViewById(R.id.senha);
-        BTNcadastro = (Button) findViewById(R.id.BTNCadastro);
+        UserN = findViewById(R.id.UserN);
+        email = findViewById(R.id.email);
+        senha = findViewById(R.id.senha);
+        BTNcadastro = findViewById(R.id.BTNCadastro);
         DBHelper DB = new DBHelper(this);
 
-        BTNcadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        BTNcadastro.setOnClickListener(view -> {
                 String usr = UserN.getText().toString();
                 String mai = email.getText().toString();
                 String pass = senha.getText().toString();
 
 
                 if (usr.equals("") || mai.equals("") || pass.equals("")){
-                    Toast.makeText(formCadastro.this, "verifique que no existem espacos vazios", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(formCadastro.this, "verifique que não existem espacos vazios", Toast.LENGTH_SHORT).show();
                 }else {
                     if(DB.checkMail(mai, pass) == false){
                         Boolean insert = DB.insertData(usr, mai, pass);
                         if (insert == true){
                             Toast.makeText(formCadastro.this, "Colocado certo, BELIEVE IT!!!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), ConversasChat.class);
+                            intent.putExtra("userEmail", mai);
                             startActivity(intent);
                         }else{
                             Toast.makeText(formCadastro.this, "erro ao criar usuário, tente novamente mais tarde", Toast.LENGTH_SHORT).show();
@@ -61,9 +61,7 @@ public class formCadastro extends AppCompatActivity {
             }
         });
 
-        senha.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+        senha.setOnTouchListener(view -> {
                 final int DRAWABLE_RIGHT = 2;
                 if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     if(motionEvent.getRawX() >= (senha.getRight() - senha.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
