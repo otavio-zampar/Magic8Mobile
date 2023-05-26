@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'com.chaquo.python'
+//    id 'com.chaquo.python'
 }
 
 android {
@@ -17,21 +17,21 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        sourceSets {
-            main {
-                python {
-                    srcDirs = ["src/main/python"]
-                }
-            }
-        }
-        python {
-            buildPython "C:/msys64/usr/bin"
-            buildPython "python3"
-            version "3.8"
-        }
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-        }
+//        sourceSets {
+//            main {
+//                python {
+//                    srcDirs = ["src/main/python"]
+//                }
+//            }
+//        }
+//        python {
+//            buildPython "C:/msys64/usr/bin"
+//            buildPython "python3"
+//            version "3.8"
+//        }
+//        ndk {
+//            abiFilters "armeabi-v7a", "x86"
+//        }
     }
 
     buildTypes {

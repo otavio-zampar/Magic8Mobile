@@ -100,6 +100,7 @@ public class ConversasChat extends AppCompatActivity {
             NewButton.setOnClickListener(view -> {
                 Intent i = new Intent(getApplicationContext(), chat.class);
                 i.putExtra("ConvID", String.valueOf(id2));
+                i.putExtra("UserID", String.valueOf(UserID));
                 startActivity(i);
             });
 
@@ -120,6 +121,7 @@ public class ConversasChat extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), chat.class);
                     i.putExtra("ConvID", "Nova Conversa");
+                    i.putExtra("UserID", String.valueOf(UserID));
                     startActivity(i);
                 });
             }else{
@@ -145,6 +147,7 @@ public class ConversasChat extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), chat.class);
                     i.putExtra("ConvID", "Nova Conversa");
+                    i.putExtra("UserID", String.valueOf(UserID));
                     startActivity(i);
                 });
 

@@ -17,9 +17,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chaquo.python.PyObject;
-import com.chaquo.python.Python;
-import com.chaquo.python.android.AndroidPlatform;
+//import com.chaquo.python.PyObject;
+//import com.chaquo.python.Python;
+//import com.chaquo.python.android.AndroidPlatform;
 
 public class formLogin extends AppCompatActivity {
 
@@ -27,7 +27,6 @@ public class formLogin extends AppCompatActivity {
     EditText email, senha;
     Button BTNlogin;
     int a = 0;
-    private TextView text_tela_cadastro;
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
@@ -36,7 +35,7 @@ public class formLogin extends AppCompatActivity {
         setContentView(R.layout.activity_form_login);
 
         getSupportActionBar().hide();
-        text_tela_cadastro = (TextView) findViewById(R.id.tela_cadastro);
+        TextView text_tela_cadastro = (TextView) findViewById(R.id.tela_cadastro);
 
 
         // muda a sombra para algo mais suave

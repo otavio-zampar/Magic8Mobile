@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/view_headline/baseline_view_headline_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Android/sdk/icons/material/materialicons/send/baseline_send_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="baseline_view_headline_24" />
+                            <entry key="outputName" value="baseline_send_24" />
                             <entry key="sourceFile" value="C:\Users\otavio.zampar\AndroidStudioProjects\ChatGPT" />
                           </map>
                         </option>
