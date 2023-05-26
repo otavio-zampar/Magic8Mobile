@@ -17,6 +17,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
+
 public class formLogin extends AppCompatActivity {
 
 
@@ -42,6 +46,12 @@ public class formLogin extends AppCompatActivity {
         email.setOutlineSpotShadowColor(Color.rgb(42, 43, 51)); // #2A2B33
         senha.setOutlineSpotShadowColor(Color.rgb(42, 43, 51)); // #2A2B33
         DBHelper DB = new DBHelper(this);
+
+
+//        Python.start(new AndroidPlatform(getApplicationContext()));
+//        Python python = Python.getInstance();
+//        PyObject pythonfile = python.getModule("hello");
+//        BTNlogin.setText(pythonfile.callAttr("helloworld").toString());
 
         BTNlogin.setOnClickListener(new View.OnClickListener() {
             @Override
