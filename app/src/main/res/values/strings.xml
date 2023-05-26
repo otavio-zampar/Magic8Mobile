@@ -1,8 +1,8 @@
 <resources>
 
-    <string name="enter">aa</string>
+    <string name="enter">Enviar</string>
     <string name="chat_title">uhn</string>
-    <string name="message_hint">111</string>
+    <string name="message_hint">Digite a sua mensagem: </string>
 
     <string name="app_name">ChatGPT</string>
     <string name="logo">Logo</string>
