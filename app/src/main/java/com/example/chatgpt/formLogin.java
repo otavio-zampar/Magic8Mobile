@@ -53,12 +53,12 @@ public class formLogin extends AppCompatActivity {
 //        PyObject pythonfile = python.getModule("hello");
 //        BTNlogin.setText(pythonfile.callAttr("helloworld").toString());
 
-        ChatGPT GPT = new ChatGPT();
+        /*ChatGPT GPT = new ChatGPT();
         try {
             BTNlogin.setText(GPT.Prompt("hello"));
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         BTNlogin.setOnClickListener(new View.OnClickListener() {
             @Override
