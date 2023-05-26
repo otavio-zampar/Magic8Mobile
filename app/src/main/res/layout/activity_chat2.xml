@@ -1,69 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Gray_back">
+    android:fillViewport="true">
 
-    <!-- Cabeçalho da Tela de Chat -->
-    <LinearLayout
-        android:id="@+id/chat_header"
-        android:orientation="horizontal"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/gray">
+        android:layout_height="match_parent"
+        tools:context=".ConversasChat"
+        android:background="@drawable/background_login">
 
-        <!-- Botão de Voltar -->
-        <ImageButton
-            android:id="@+id/back_button"
+        <View
+            android:id="@+id/navbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/Purple"
+            android:foregroundGravity="top"
+            />
+
+        <TextView
+            android:id="@+id/textviewuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:src="@drawable/ic_back_arrow"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/navbar"
+            app:layout_constraintBottom_toBottomOf="@id/navbar">
+        </TextView>
 
-        <!-- Título da Conversa -->
+        <View
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.6"
+            android:layout_height="match_parent"
+            android:id="@+id/sidebarContainer"
+            app:layout_constraintRight_toLeftOf="parent"
+            android:visibility="invisible"
+            android:elevation="100dp"
+            android:background="@color/Purple"/>
+
+        <ImageButton
+            android:id="@+id/imgIcon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_baseline_person_24"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_border"
+            app:layout_constraintLeft_toLeftOf="@id/sidebarContainer"
+            app:layout_constraintRight_toRightOf="@id/sidebarContainer"
+            app:layout_constraintTop_toTopOf="@id/sidebarContainer"
+            android:visibility="invisible"
+            android:elevation="101dp"
+            />
+        <View
+            android:id="@+id/imgIconBorder"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_border2"
+            app:layout_constraintLeft_toLeftOf="@id/sidebarContainer"
+            app:layout_constraintRight_toRightOf="@id/sidebarContainer"
+            app:layout_constraintTop_toTopOf="@id/sidebarContainer"
+            android:visibility="invisible"
+            android:elevation="102dp"/>
+
         <TextView
-            android:id="@+id/chat_title"
-            android:layout_width="387dp"
-            android:layout_height="match_parent"
-            android:text="@string/chat_title"
-            android:textColor="@color/white" />
+            android:id="@+id/titulo"
+            app:layout_constraintLeft_toLeftOf="@id/imgIcon"
+            app:layout_constraintRight_toRightOf="@id/imgIcon"
+            app:layout_constraintTop_toBottomOf="@id/imgIcon"
+            style="@style/textWhiteComponents"
+            android:elevation="101dp"
+            android:text="EDITAR USUÁRIO"/>
 
-    </LinearLayout>
-
-    <!-- Lista de Mensagens -->
-    <ListView
-        android:id="@+id/message_list"
-        android:layout_width="match_parent"
-        android:textColor="@color/white"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <!-- Campo de Entrada de Mensagens -->
-    <LinearLayout
-        android:id="@+id/chat_input"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/light_gray">
-
-        <!-- Campo de Texto de Entrada -->
-        <EditText
-            android:id="@+id/message_input"
-            android:layout_width="300dp"
+        <TextView
+            android:id="@+id/textEditNome"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:hint="@string/message_hint"
-            android:textColorHint="@color/hint" />
+            app:layout_constraintLeft_toLeftOf="@id/titulo"
+            app:layout_constraintRight_toRightOf="@id/titulo"
+            app:layout_constraintTop_toBottomOf="@id/titulo"
+            style="@style/textWhiteComponents"
+            android:elevation="101dp"
+            android:text="Editar Nome:"/>
 
-        <!-- Botão de Enviar -->
-        <Button
-            android:id="@+id/send_button"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:textColor="@color/White_text"
-            android:text="@string/enter" />
+        <EditText
+            android:id="@+id/editNome"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@id/textEditNome"
+            app:layout_constraintRight_toRightOf="@id/textEditNome"
+            app:layout_constraintTop_toBottomOf="@id/textEditNome"
+            style="@style/textComponents"
+            android:elevation="101dp"
+            android:hint="Nome..."/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/textEditSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/editNome"
+            app:layout_constraintRight_toRightOf="@id/editNome"
+            app:layout_constraintTop_toBottomOf="@id/editNome"
+            style="@style/textWhiteComponents"
+            android:elevation="101dp"
+            android:text="Editar senha:"/>
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/editSenha"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@id/textEditSenha"
+            app:layout_constraintRight_toRightOf="@id/textEditSenha"
+            app:layout_constraintTop_toBottomOf="@id/textEditSenha"
+            style="@style/textComponents"
+            android:elevation="101dp"
+            android:hint="Senha nova..."/>
+        <EditText
+            android:id="@+id/ConfirmarSenha"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@id/editSenha"
+            app:layout_constraintRight_toRightOf="@id/editSenha"
+            app:layout_constraintTop_toBottomOf="@id/editSenha"
+            style="@style/textComponents"
+            android:elevation="101dp"
+            android:hint="Senha Antiga..."/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/BTNconfirmarEdit"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ConfirmarSenha"
+            app:layout_constraintRight_toRightOf="@id/ConfirmarSenha"
+            app:layout_constraintTop_toBottomOf="@id/ConfirmarSenha"
+            android:layout_marginTop="20dp"
+            style="@style/BTNComponents"
+            android:visibility="visible"
+            android:stateListAnimator="@null"
+            android:elevation="101dp"
+            android:textSize="18sp"
+            android:text="Confirmar"/>
+
+        <ImageButton
+            android:id="@+id/imgSidebar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/circle"
+            android:rotation="270"
+            android:src="@drawable/baseline_expand_more_24"
+            app:layout_constraintStart_toStartOf="@id/navbar"
+            app:layout_constraintTop_toTopOf="@id/navbar"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/navbar"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/parentLayout">
+                
+            </LinearLayout>
+        </ScrollView>
+
+        <View
+            android:id="@+id/EndBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/Purple"
+
+            android:elevation="10dp"
+            android:layout_alignParentBottom="true"
+            />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:orientation="vertical"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    android:background="@color/Gray_back">-->
+
+    <!--    &lt;!&ndash; Cabeçalho da Tela de Chat &ndash;&gt;-->
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/chat_header"-->
+    <!--        tools:context=".chat"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:background="@color/gray">-->
+
+    <!--        <View-->
+    <!--            android:id="@+id/navbarChat"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="60dp"-->
+    <!--            android:background="@color/Purple"-->
+    <!--            android:foregroundGravity="top"-->
+    <!--            />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/chat_title"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="@id/navbarChat"-->
+    <!--            app:layout_constraintBottom_toBottomOf="@id/navbarChat"-->
+    <!--            android:textColor="@color/White_text"/>-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/imgSidebar"-->
+    <!--            android:layout_width="60dp"-->
+    <!--            android:layout_height="60dp"-->
+    <!--            android:background="@drawable/circle"-->
+    <!--            android:src="@drawable/baseline_view_headline_24"-->
+    <!--            app:layout_constraintStart_toStartOf="@id/navbarChat"-->
+    <!--            app:layout_constraintTop_toTopOf="@id/navbarChat"-->
+    <!--            tools:ignore="SpeakableTextPresentCheck" />-->
+
+    <!--&lt;!&ndash;        <LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_height="0dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;            app:layout_constraintTop_toBottomOf="@id/navbarChat"&ndash;&gt;-->
+    <!--&lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;            >&ndash;&gt;-->
+
+    <!--&lt;!&ndash;            &lt;!&ndash; Lista de Mensagens &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;            <ListView&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:id="@+id/message_list"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:textColor="@color/white"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_height="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_weight="1"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;            &ndash;&gt;-->
+    <!--&lt;!&ndash;        </LinearLayout>&ndash;&gt;-->
+
+    <!--    -->
+
+    <!--        &lt;!&ndash; Campo de Texto de Entrada &ndash;&gt;-->
+    <!--        <EditText-->
+    <!--            android:id="@+id/message_input"-->
+    <!--            android:layout_width="300dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="3"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--            app:layout_constraintRight_toRightOf="parent"-->
+    <!--            android:hint="@string/message_hint"-->
+    <!--            android:foregroundGravity="bottom"-->
+    <!--            android:textColorHint="@color/hint" />-->
+
+    <!--        &lt;!&ndash; Botão de Enviar &ndash;&gt;-->
+    <!--        <androidx.appcompat.widget.AppCompatButton-->
+    <!--            android:id="@+id/send_button"-->
+    <!--            android:layout_width="100dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:textColor="@color/White_text"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--            app:layout_constraintRight_toRightOf="parent"-->
+    <!--            android:text="@string/enter" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <!--</androidx.core.widget.NestedScrollView>-->

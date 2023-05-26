@@ -14,9 +14,10 @@ public class chat extends AppCompatActivity {
         getSupportActionBar().hide();
         Intent i = getIntent();
         String ConvID = i.getStringExtra("ConvID");
+        ChatGPT GPT = new ChatGPT();
 
-        TextView chat_title = findViewById(R.id.chat_title);
-        chat_title.setText(ConvID);
+//        TextView chat_title = findViewById(R.id.chat_title);
+//        chat_title.setText(ConvID);
 
     }
 }
