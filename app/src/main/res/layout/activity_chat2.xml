@@ -14,8 +14,8 @@
         <View
             android:id="@+id/navbar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="4dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.07"
             android:background="@color/Purple"
             android:foregroundGravity="top"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,10 +27,11 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
-            android:layout_height="40dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.07"
             android:layout_margin="10dp"
             android:text="Título"
-            android:textAlignment="center"
+            android:gravity="center"
             android:textColor="@color/White_text"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/navbar"
@@ -41,7 +42,8 @@
         <ImageButton
             android:id="@+id/imgSidebar"
             android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.07"
             android:src="@drawable/ic_back_arrow"
             app:layout_constraintStart_toStartOf="@id/navbar"
             app:layout_constraintTop_toTopOf="@id/navbar"
@@ -50,17 +52,16 @@
 
         <ScrollView
             android:id="@+id/scrollView3"
-            android:layout_width="404dp"
-            android:layout_height="562dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.8"
             app:layout_constraintBottom_toTopOf="@id/EndBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/navbar"
             app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
-                android:id="@+id/parentLayout"
+                android:id="@+id/textLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -68,26 +69,18 @@
                 <!-- Aqui você pode adicionar as mensagens da conversa dinamicamente -->
 
                 <!-- Exemplo de uma mensagem de entrada -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:textColor="@color/black_text"
-                    android:layout_margin="8dp"
-                    android:background="@color/White_text"
-                    android:padding="8dp"
-                    android:text="Olá Chat!" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/UsrComponents"-->
+<!--                    android:text="Olá Chat!" />-->
 
                 <!-- Exemplo de uma mensagem de saída -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:textColor="@color/black_text"
-                    android:layout_margin="8dp"
-                    android:background="@color/Purple_highlight"
-                    android:padding="8dp"
-                    android:text="Olá! Tudo bem?" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                   style="@style/ChatComponents"-->
+<!--                    android:text="Olá! Tudo bem?" />-->
 
                 <!-- Adicione mais mensagens conforme necessário -->
 
@@ -97,9 +90,9 @@
         <View
             android:id="@+id/EndBar"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.13"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="4dp"
             android:background="@color/Purple"
             android:elevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"

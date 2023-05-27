@@ -19,7 +19,6 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -104,23 +103,22 @@ public class ConversasChat extends AppCompatActivity {
                 startActivity(i);
             });
 
-            Nconversas = id;
+            Nconversas = id+1;
 //            Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
         }
 
         imgEdit.setOnClickListener(view -> {
             Nconversas= Nconversas+1;
-            DB.insertConversas(UserID, ("aaa " + Nconversas), "ccccccccccc");
+            DB.insertConversas(UserID, ("Conversa #" + Nconversas), "ccccccccccc");
         });
 
         imgAdd.setOnClickListener(v -> {
-            if (Nconversas <= 7) {
+            if (Nconversas <= 8) {
                 Nconversas = Nconversas+1;
                 AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
                 NewButton.setOnClickListener(view -> {
-                    Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), chat.class);
-                    i.putExtra("ConvID", "Nova Conversa");
+                    i.putExtra("ConvID", -1);
                     i.putExtra("UserID", String.valueOf(UserID));
                     startActivity(i);
                 });
@@ -140,20 +138,27 @@ public class ConversasChat extends AppCompatActivity {
         });
 
         btnNovaConversa.setOnClickListener(view -> {
-            if (Nconversas <= 9) {
-                AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
 
-                NewButton.setOnClickListener(View -> {
-                    Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), chat.class);
-                    i.putExtra("ConvID", "Nova Conversa");
-                    i.putExtra("UserID", String.valueOf(UserID));
-                    startActivity(i);
-                });
+            Intent i = new Intent(getApplicationContext(), chat.class);
+            i.putExtra("ConvID", String.valueOf(-1));
+            i.putExtra("UserID", String.valueOf(UserID));
+            startActivity(i);
 
-            }else{
-                Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
-            }
+//            if (Nconversas <= 8) {
+//                Nconversas = Nconversas+1;
+//                AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
+//
+//                NewButton.setOnClickListener(View -> {
+//                    Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
+//                    Intent i = new Intent(getApplicationContext(), chat.class);
+//                    i.putExtra("ConvID", -1);
+//                    i.putExtra("UserID", String.valueOf(UserID));
+//                    startActivity(i);
+//                });
+//
+//            }else{
+//                Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
+//            }
         });
 
         confirmaEdit.setOnClickListener(view -> {
