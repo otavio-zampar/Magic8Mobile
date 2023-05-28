@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.util.DisplayMetrics;
@@ -43,7 +44,8 @@ public class ConversasChat extends AppCompatActivity {
 //    private final int screenWidth = displayMetrics.widthPixels;
 //    private final int screenHeight = displayMetrics.heightPixels;
     private int Nconversas = 0;
-    private Bitmap yourSelectedImage;
+    private MediaPlayer bckg;
+//    private Bitmap yourSelectedImage;
 
     private void getSidebarIds(){
         imgOpen = findViewById(R.id.imgSidebar);
@@ -71,6 +73,10 @@ public class ConversasChat extends AppCompatActivity {
         TextView userName = findViewById(R.id.textviewuser);
         ImageButton imgAdd = findViewById(R.id.add);
         ImageButton imgDel = findViewById(R.id.trash);
+        bckg = MediaPlayer.create(getApplicationContext(), R.raw.wii_shop_bossa_nova);
+        bckg.setVolume(0.2F, 0.2F);
+        bckg.setLooping(true);
+        bckg.start();
 
         ImageButton imgEdit = findViewById(R.id.edit);
         LinearLayout parentLayout = findViewById(R.id.parentLayout);
@@ -98,8 +104,8 @@ public class ConversasChat extends AppCompatActivity {
             final int id2 = id;
             NewButton.setOnClickListener(view -> {
                 Intent i = new Intent(getApplicationContext(), chat.class);
-                i.putExtra("ConvID", String.valueOf(id2));
-                i.putExtra("UserID", String.valueOf(UserID));
+                i.putExtra("ConvID", id2);
+                i.putExtra("UserID", UserID);
                 startActivity(i);
             });
 
@@ -119,7 +125,7 @@ public class ConversasChat extends AppCompatActivity {
                 NewButton.setOnClickListener(view -> {
                     Intent i = new Intent(getApplicationContext(), chat.class);
                     i.putExtra("ConvID", -1);
-                    i.putExtra("UserID", String.valueOf(UserID));
+                    i.putExtra("UserID", UserID);
                     startActivity(i);
                 });
             }else{
@@ -140,8 +146,8 @@ public class ConversasChat extends AppCompatActivity {
         btnNovaConversa.setOnClickListener(view -> {
 
             Intent i = new Intent(getApplicationContext(), chat.class);
-            i.putExtra("ConvID", String.valueOf(-1));
-            i.putExtra("UserID", String.valueOf(UserID));
+            i.putExtra("ConvID", -1);
+            i.putExtra("UserID", UserID);
             startActivity(i);
 
 //            if (Nconversas <= 8) {
@@ -152,7 +158,7 @@ public class ConversasChat extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
 //                    Intent i = new Intent(getApplicationContext(), chat.class);
 //                    i.putExtra("ConvID", -1);
-//                    i.putExtra("UserID", String.valueOf(UserID));
+//                    i.putExtra("UserID", UserID);
 //                    startActivity(i);
 //                });
 //
@@ -185,53 +191,11 @@ public class ConversasChat extends AppCompatActivity {
         });
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch(requestCode) {
-            case 1234:
-                if(resultCode == RESULT_OK){
-//                    DBHelper DB = new DBHelper(getApplicationContext());
-                    Uri selectedImage = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String filePath = cursor.getString(columnIndex);
-                    cursor.close();
-
-
-                    yourSelectedImage = BitmapFactory.decodeFile(filePath);
-
-                    int desiredWidth = 1;
-                    int desiredHeight = 1;
-                    int StartX = 1;
-                    int StartY = 1;
-                    if(yourSelectedImage.getWidth() < yourSelectedImage.getHeight()){
-                    desiredWidth = yourSelectedImage.getWidth();
-                    desiredHeight = yourSelectedImage.getWidth();
-                    StartX = 0;
-                    StartY = 0;
-                    }else{
-                        desiredWidth = yourSelectedImage.getHeight();
-                        desiredHeight = yourSelectedImage.getHeight();
-                        StartX = 0;
-                        StartY = 0;
-                    }
-
-                    Bitmap croppedBitmap = Bitmap.createBitmap(yourSelectedImage, StartX, StartY, desiredWidth, desiredHeight);
-
-                    imgIcon.setImageBitmap(croppedBitmap);
-//                    if (DB.addEntry(DBHelper.getBitmapAsByteArray(yourSelectedImage))){
-//                        Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
-//                    }
-                }
-        }
-
-    };
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bckg.stop();
+    }
 
     @SuppressLint({"ResourceType", "DefaultLocale"})
     protected int createButton(AppCompatButton btnNovaConversa, LinearLayout parentLayout) {

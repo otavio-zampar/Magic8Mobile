@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 //import com.chaquo.python.PyObject;
 //import com.chaquo.python.Python;
 //import com.chaquo.python.android.AndroidPlatform;
@@ -70,6 +72,8 @@ public class formLogin extends AppCompatActivity {
                 }else {
                     boolean checkPass = DB.checkLogin(mai, pass);
                     if (checkPass == true){
+                        email.setText("");
+                        senha.setText("");
                         Toast.makeText(formLogin.this, "logado com sucesso", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), ConversasChat.class);
                         intent.putExtra("userEmail", mai);

@@ -46,6 +46,9 @@ public class formCadastro extends AppCompatActivity {
                     if(DB.checkMail(mai, pass) == false){
                         Boolean insert = DB.insertData(usr, mai, pass);
                         if (insert == true){
+                            UserN.setText("");
+                            email.setText("");
+                            senha.setText("");
                             Toast.makeText(formCadastro.this, "Colocado certo, BELIEVE IT!!!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), ConversasChat.class);
                             intent.putExtra("userEmail", mai);
