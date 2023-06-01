@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.AppCompatButton;
 
 import java.util.HashSet;
 import java.util.Locale;
@@ -41,6 +42,15 @@ public class chat extends AppCompatActivity {
         ImageButton send_button = findViewById(R.id.send_button);
         EditText message_input = findViewById(R.id.message_input);
         LinearLayout parentLayout = findViewById(R.id.textLayout);
+
+        // for every row in DB create a button and increment to Nconversas with name "conversas(nome)"
+        for (int id = 0; id < DB.getMsgsRows(ConvID); id = id+1) {
+            int MsgUsrID = createUserTextView(DB.getPrompt(ConvID, id), parentLayout);
+            int MsgChatID = createChatTextView(DB.getAnswer(ConvID, id), parentLayout);
+
+        }
+
+
 
         TTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -81,6 +91,8 @@ public class chat extends AppCompatActivity {
                 params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId);
 
                 TTS.speak(txt, TTS.QUEUE_FLUSH, params, "MyUtteranceID");
+
+                DB.insertMsgs(ConvID, textUsr, txt);
 
 
 

@@ -25,7 +25,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("create Table users(id INTEGER primary key AUTOINCREMENT, username TEXT NOT NULL, email TEXT unique NOT NULL, senha TEXT NOT NULL, image BLOB)");
-        MyDB.execSQL("create Table conversas(id INTEGER primary key AUTOINCREMENT, user INTEGER NOT NULL, nome TEXT NOT NULL, conversa TEXT NOT NULL)");
+        MyDB.execSQL("create Table conversas(id INTEGER primary key AUTOINCREMENT, user INTEGER NOT NULL, nome TEXT NOT NULL)");
+        MyDB.execSQL("create Table msgs(id INTEGER primary key AUTOINCREMENT, IDconversa TEXT NOT NULL, prompt TEXT NOT NULL, answer TEXT NOT NULL)");
         initTableUser(MyDB);
     }
 
@@ -42,6 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase MyDB, int i, int i1) {
         MyDB.execSQL("drop Table if exists users");
         MyDB.execSQL("drop Table if exists conversas");
+        MyDB.execSQL("drop Table if exists msgs");
 
     }
 
@@ -59,16 +61,38 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertConversas(int user, String nome, String conversa){ // user nome conversa date
+    public boolean insertConversas(int user, String nome){ // user nome conversa date
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("user", user);
         contentValues.put("nome", nome);
-        contentValues.put("conversa", conversa);
-
         long result = MyDB.insert("conversas", null, contentValues);
         return result != -1;
     }
+
+    @SuppressLint("Range")
+    public int getConvID(String nome){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("select id from conversas where nome = ?", new String[]{nome});
+        int id = -1;
+
+        cursor.moveToFirst();
+        if (cursor.getColumnIndex("nome") != -1) {
+            id = cursor.getInt(cursor.getColumnIndex("nome"));
+        }
+        return id;
+    }
+
+    public boolean insertMsgs(int ConvID, String prompt, String answer){ // user nome conversa date
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("IDconversa", ConvID);
+        contentValues.put("prompt", prompt);
+        contentValues.put("answer", answer);
+        long result = MyDB.insert("msgs", null, contentValues);
+        return result != -1;
+    }
+
 
     @Override
     public String getDatabaseName() {
@@ -108,6 +132,48 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("select * from conversas where user = ?", new String[]{String.valueOf(user)});
         return cursor.getCount();
+    }
+
+    public int getMsgsRows(int IDconv){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("select * from msgs where IDconversa = ?", new String[]{String.valueOf(IDconv)});
+        return cursor.getCount();
+    }
+
+    @SuppressLint("Range")
+    public String getPrompt(int IDConv, int t){
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("select prompt from msgs where IDconversa = ?", new String[]{String.valueOf(IDConv)});
+        String prompt;
+
+        cursor.move(t);
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.move(t);
+            prompt = cursor.getString(0);
+        } else {
+            prompt = "Nao achou o prompt";
+        }
+        cursor.close();
+        return prompt;
+    }
+
+    @SuppressLint("Range")
+    public String getAnswer(int IDConv, int t){
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("select answer from msgs where IDconversa = ?", new String[]{String.valueOf(IDConv)});
+        String answer;
+
+        cursor.move(t);
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.move(t);
+            answer = cursor.getString(0);
+        } else {
+            answer = "Nao achou a resposta";
+        }
+        cursor.close();
+        return answer;
     }
 
     @SuppressLint("Range")
@@ -192,8 +258,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 MyDB.execSQL("DELETE FROM conversas");
                 break;
             case 2:
+                MyDB.execSQL("DELETE FROM msgs");
+                break;
+            case 3:
+                MyDB.execSQL("DELETE FROM conversas");
+                MyDB.execSQL("DELETE FROM msgs");
+                break;
+            case 4:
                 MyDB.execSQL("DELETE FROM users");
                 MyDB.execSQL("DELETE FROM conversas");
+                MyDB.execSQL("DELETE FROM msgs");
                 break;
             default:
                 break;

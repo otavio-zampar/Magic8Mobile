@@ -115,7 +115,7 @@ public class ConversasChat extends AppCompatActivity {
 
         imgEdit.setOnClickListener(view -> {
             Nconversas= Nconversas+1;
-            DB.insertConversas(UserID, ("Conversa #" + Nconversas), "ccccccccccc");
+            DB.insertConversas(UserID, ("Conversa #" + Nconversas));
         });
 
         imgAdd.setOnClickListener(v -> {
@@ -123,8 +123,12 @@ public class ConversasChat extends AppCompatActivity {
                 Nconversas = Nconversas+1;
                 AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
                 NewButton.setOnClickListener(view -> {
+
+                    Nconversas= Nconversas+1;
+                    DB.insertConversas(UserID, ("Conversa #" + Nconversas));
+
                     Intent i = new Intent(getApplicationContext(), chat.class);
-                    i.putExtra("ConvID", -1);
+                    i.putExtra("ConvID", DB.getConvID(("Conversa #" + Nconversas)));
                     i.putExtra("UserID", UserID);
                     startActivity(i);
                 });
@@ -136,7 +140,7 @@ public class ConversasChat extends AppCompatActivity {
         imgOpen.setOnClickListener(view -> openSidebar());
 
         imgDel.setOnClickListener(view -> {
-            if (DB.nuke(1)){
+            if (DB.nuke(3)){
                 Toast.makeText(imgDel.getContext(), "Apagado todas as conversas", Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(imgDel.getContext(), "Erro ao deletar Todas as Linhas do banco... YAY", Toast.LENGTH_SHORT).show();
@@ -146,25 +150,14 @@ public class ConversasChat extends AppCompatActivity {
         btnNovaConversa.setOnClickListener(view -> {
 
             Intent i = new Intent(getApplicationContext(), chat.class);
-            i.putExtra("ConvID", -1);
+
+            Nconversas= Nconversas+1;
+            DB.insertConversas(UserID, ("Conversa #" + Nconversas));
+
+            i.putExtra("ConvID", DB.getConvID(("Conversa #" + Nconversas)));
             i.putExtra("UserID", UserID);
             startActivity(i);
 
-//            if (Nconversas <= 8) {
-//                Nconversas = Nconversas+1;
-//                AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
-//
-//                NewButton.setOnClickListener(View -> {
-//                    Toast.makeText(getApplicationContext(), "aaaaaaaaa", Toast.LENGTH_SHORT).show();
-//                    Intent i = new Intent(getApplicationContext(), chat.class);
-//                    i.putExtra("ConvID", -1);
-//                    i.putExtra("UserID", UserID);
-//                    startActivity(i);
-//                });
-//
-//            }else{
-//                Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
-//            }
         });
 
         confirmaEdit.setOnClickListener(view -> {
@@ -189,6 +182,35 @@ public class ConversasChat extends AppCompatActivity {
             final int ACTIVITY_SELECT_IMAGE = 1234;
             startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bckg.start();
+
+//        AppCompatButton btnNovaConversa = findViewById(R.id.btnAddConversa);
+//        LinearLayout parentLayout = findViewById(R.id.parentLayout);
+//        DBHelper DB = new DBHelper(getApplicationContext());
+//        Intent intent = getIntent();
+//        String userEMail = intent.getStringExtra("userEmail");
+//        int UserID = DB.getID(userEMail);
+//
+//        // for every row in DB create a button and increment to Nconversas with name "conversas(nome)"
+//        for (int id = 0; id < DB.getConversaRows(UserID); id = id+1){
+//            AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
+//            NewButton.setText(DB.getCvsName(UserID, id));
+//            final int id2 = id;
+//            NewButton.setOnClickListener(view -> {
+//                Intent i = new Intent(getApplicationContext(), chat.class);
+//                i.putExtra("ConvID", id2);
+//                i.putExtra("UserID", UserID);
+//                startActivity(i);
+//            });
+//
+//            Nconversas = id+1;
+////            Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
+//        }
     }
 
     @Override
