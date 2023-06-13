@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <EditText
             android:id="@+id/title"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
@@ -34,6 +34,7 @@
             android:gravity="center"
             android:textColor="@color/White_text"
             android:textSize="18sp"
+            android:background="@drawable/edittext_no_underline"
             app:layout_constraintBottom_toBottomOf="@id/navbar"
             app:layout_constraintStart_toStartOf="@id/navbar"
             app:layout_constraintEnd_toEndOf="@id/navbar"

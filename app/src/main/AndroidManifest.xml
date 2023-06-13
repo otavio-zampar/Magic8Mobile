@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.chatgpt"
     xmlns:tools="http://schemas.android.com/tools">
 <!--    <uses-permission android:name="android.permission.INTERNET" />-->
 <!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
@@ -19,11 +19,12 @@
 
         <activity
             android:name=".chat"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".formLogin"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,11 +34,11 @@
         <activity
             android:name=".formCadastro"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat"></activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".ConversasChat"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat"></activity>
+            android:theme="@style/AppTheme"></activity>
     </application>
 
     <queries>

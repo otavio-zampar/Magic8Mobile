@@ -44,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists users");
         MyDB.execSQL("drop Table if exists conversas");
         MyDB.execSQL("drop Table if exists msgs");
+        MyDB.close();
 
     }
 
@@ -56,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("senha", senha);
 
         long result = MyDB.insert("users", null, contentValues);
-
+        MyDB.close();
         return result != -1;
 
     }
@@ -67,6 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("user", user);
         contentValues.put("nome", nome);
         long result = MyDB.insert("conversas", null, contentValues);
+        MyDB.close();
         return result != -1;
     }
 
@@ -80,6 +82,8 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.getColumnIndex("nome") != -1) {
             id = cursor.getInt(cursor.getColumnIndex("nome"));
         }
+        cursor.close();
+        MyDB.close();
         return id;
     }
 
@@ -90,6 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("prompt", prompt);
         contentValues.put("answer", answer);
         long result = MyDB.insert("msgs", null, contentValues);
+        MyDB.close();
         return result != -1;
     }
 
@@ -109,7 +114,24 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.getColumnIndex("username") != -1) {
             username = cursor.getString(cursor.getColumnIndex("username"));
         }
+        cursor.close();
+        MyDB.close();
         return username;
+    }
+
+    @SuppressLint("Range")
+    public String getEmail(int id){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("select email from users where id = ?", new String[]{String.valueOf(id)});
+        String email = "Nao achou o email";
+
+        cursor.moveToFirst();
+        if (cursor.getColumnIndex("email") != -1) {
+            email = cursor.getString(cursor.getColumnIndex("email"));
+        }
+        cursor.close();
+        MyDB.close();
+        return email;
     }
 
     @SuppressLint("Range")
@@ -124,20 +146,27 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }while (cursor.moveToNext());
 
-
+        cursor.close();
+        MyDB.close();
         return id;
     }
 
     public int getConversaRows(int user){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("select * from conversas where user = ?", new String[]{String.valueOf(user)});
-        return cursor.getCount();
+        int a = cursor.getCount();
+        cursor.close();
+        MyDB.close();
+        return a;
     }
 
     public int getMsgsRows(int IDconv){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("select * from msgs where IDconversa = ?", new String[]{String.valueOf(IDconv)});
-        return cursor.getCount();
+        int a = cursor.getCount();
+        cursor.close();
+        MyDB.close();
+        return a;
     }
 
     @SuppressLint("Range")
@@ -148,13 +177,14 @@ public class DBHelper extends SQLiteOpenHelper {
         String prompt;
 
         cursor.move(t);
-        if (cursor != null && cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             cursor.move(t);
             prompt = cursor.getString(0);
         } else {
             prompt = "Nao achou o prompt";
         }
         cursor.close();
+        MyDB.close();
         return prompt;
     }
 
@@ -166,13 +196,14 @@ public class DBHelper extends SQLiteOpenHelper {
         String answer;
 
         cursor.move(t);
-        if (cursor != null && cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             cursor.move(t);
             answer = cursor.getString(0);
         } else {
             answer = "Nao achou a resposta";
         }
         cursor.close();
+        MyDB.close();
         return answer;
     }
 
@@ -180,17 +211,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public String getCvsName(int UML, int t){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("select nome from conversas where user = ?", new String[]{String.valueOf(UML)});
-//        Cursor cursor = MyDB.rawQuery("select conversas.nome from conversas join users on conversas.user = users.id where users.email = ?", new String[]{UML});
         String name;
         if (cursor != null && cursor.moveToFirst()){
             cursor.move(t);
-//            name = cursor.getColumnName(0);
             name = cursor.getString(0);
 
         } else {
             name = "Nao achou o nome";
         }
+        assert cursor != null;
         cursor.close();
+        MyDB.close();
         return name;
     }
 
@@ -200,6 +231,8 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         @SuppressLint("Range") byte[] bitmapdata = cursor.getBlob(cursor.getColumnIndex("image"));
         Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+        cursor.close();
+        MyDB.close();
         return bitmap;
     }
 
@@ -215,7 +248,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (hasNum.find() && hasSpecial.find() && hasScase.find()) {
             Cursor cursor = MyDB.rawQuery("select * from users where email = ?", new String[]{email});
-            return cursor.getCount() > 0;
+            boolean a = cursor.getCount() > 0;
+            cursor.close();
+            MyDB.close();
+            return a;
         }
         return  false;
     }
@@ -225,6 +261,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = MyDB.rawQuery("select * from users where email = ? and senha = ?", new String[]{mail, senha});
         boolean it = cursor.getCount() > 0;
         cursor.close();
+        MyDB.close();
         return it;
     }
 
@@ -233,18 +270,28 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = MyDB.rawQuery("select * from users where senha = ?", new String[]{senha});
         boolean it = cursor.getCount() > 0;
         cursor.close();
+        MyDB.close();
         return it;
     }
 
     public boolean editSenha(int id, String Senha){
-        SQLiteDatabase MyDN = this.getWritableDatabase();
-        MyDN.execSQL("UPDATE users SET senha = ? WHERE id = ?", new String[]{Senha, String.valueOf(id)});
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        MyDB.execSQL("UPDATE users SET senha = ? WHERE id = ?", new String[]{Senha, String.valueOf(id)});
+        MyDB.close();
+        return true;
+    }
+
+    public boolean editCVSname(int id, String nome){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        MyDB.execSQL("UPDATE conversas SET nome = ? WHERE id = ?", new String[]{nome, String.valueOf(id)});
+        MyDB.close();
         return true;
     }
 
     public boolean editUN(int id, String Nome){
-        SQLiteDatabase MyDN = this.getWritableDatabase();
-        MyDN.execSQL("UPDATE users SET username = ? WHERE id = ?", new String[]{Nome, String.valueOf(id)});
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        MyDB.execSQL("UPDATE users SET username = ? WHERE id = ?", new String[]{Nome, String.valueOf(id)});
+        MyDB.close();
         return true;
     }
 
@@ -272,6 +319,7 @@ public class DBHelper extends SQLiteOpenHelper {
             default:
                 break;
         }
+        MyDB.close();
         return true;
     }
 
@@ -286,7 +334,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues cv = new  ContentValues();
         cv.put("image", image);
         long result = MyDB.insert("users", null, cv);
-
+        MyDB.close();
         return result != -1;
     }
 
@@ -296,6 +344,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = MyDB.rawQuery("select * from users where id = ?", new String[]{String.valueOf(userID)});
         boolean it = cursor.getCount() > 0;
         cursor.close();
+        MyDB.close();
         return it;
     }
 }
