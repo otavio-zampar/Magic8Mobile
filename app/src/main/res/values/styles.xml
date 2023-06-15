@@ -6,6 +6,11 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="fonts2">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="ContainerLoginComponents">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">270dp</item>
@@ -13,6 +18,10 @@
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:layout_marginTop">100dp</item>
+    </style>
+
+    <style name="ContainerLoginComponents2">
+        <item name="android:background">@drawable/container_login_components</item>
     </style>
 
     <style name="textComponents" parent="fonts">
@@ -30,13 +39,29 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
-    <style name="BTNComponents" parent="fonts">
+    <style name="textComponents2" parent="fonts">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">15dp</item>
         <item name="android:elevation">5dp</item>
-        <item name="android:layout_marginLeft">25dp</item>
-        <item name="android:layout_marginRight">25dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="maxLines">1</item>
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:background">@drawable/text_components</item>
+        <item name="android:textColor">@color/White_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorHint">@color/Gray_text</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="BTNComponents" parent="fonts2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:layout_marginRight">30dp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">18sp</item>
@@ -53,7 +78,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">15dp</item>
-        <item name="android:visibility">invisible</item> <!--  set to invisible later -->
+        <item name="android:visibility">invisible</item>
         <item name="maxLines">1</item>
         <item name="android:textColor">@color/White_text</item>
         <item name="android:textSize">18sp</item>
@@ -61,22 +86,20 @@
     </style>
 
     <style name="UsrComponents" parent="fonts">
-        <item name="android:layout_margin">8dp</item>
         <item name="android:padding">8dp</item>
         <item name="android:elevation">5dp</item>
         <item name="maxLines">5</item>
         <item name="android:background">@drawable/background_usr</item>
-        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textColor">@color/White_text</item>
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="ChatComponents" parent="fonts">
-        <item name="android:layout_margin">8dp</item>
         <item name="android:padding">8dp</item>
         <item name="android:elevation">5dp</item>
         <item name="maxLines">5</item>
         <item name="android:background">@drawable/background_chat</item>
-        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
     </style>
         

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_login"
@@ -22,7 +21,7 @@
             android:layout_height="200dp"
             android:src="@drawable/ic_baseline_person_24"
             android:layout_marginTop="40dp"
-            app:tint="@color/Purple"
+            app:tint="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,14 +38,15 @@
             android:id="@+id/unfocus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:clickable="true"
-            android:focusable="true" />
+            android:contentDescription="@string/unfocus"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
 
-            style="@style/textComponents"
+            style="@style/textComponents2"
             android:id="@+id/email"
             android:hint="@string/e_mail"
             android:drawableRight="@drawable/ic_baseline_mail_24"
@@ -54,12 +54,13 @@
             app:layout_constraintStart_toStartOf="@id/ContainerLoginComponents"
             app:layout_constraintStart_toEndOf="@id/ContainerLoginComponents"
             app:layout_constraintTop_toTopOf="@id/ContainerLoginComponents"
+            app:layout_constraintBottom_toTopOf="@id/senha"
             android:autofillHints="emailAddress"
             android:inputType="textEmailAddress"/>
 
         <EditText
 
-            style="@style/textComponents"
+            style="@style/textComponents2"
             android:id="@+id/senha"
             android:hint="@string/senha"
             android:drawableRight="@drawable/ic_baseline_remove_red_eye_24"
@@ -67,6 +68,7 @@
             app:layout_constraintStart_toStartOf="@id/ContainerLoginComponents"
             app:layout_constraintStart_toEndOf="@id/ContainerLoginComponents"
             app:layout_constraintTop_toBottomOf="@id/email"
+            app:layout_constraintBottom_toTopOf="@id/BTNlogin"
             android:autofillHints="password"
             android:inputType="textPassword" />
 
@@ -77,6 +79,8 @@
             app:layout_constraintStart_toStartOf="@id/ContainerLoginComponents"
             app:layout_constraintStart_toEndOf="@id/ContainerLoginComponents"
             app:layout_constraintTop_toBottomOf="@id/senha"
+            app:layout_constraintBottom_toBottomOf="@id/ContainerLoginComponents"
+
             />
 
         <ProgressBar
@@ -95,13 +99,13 @@
             android:id="@+id/tela_cadastro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/cadastro"
             android:textColor="@color/White_text"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ContainerLoginComponents"
-            android:layout_marginBottom="16dp" />
+            tools:ignore="TextSizeCheck" />
 
 
 

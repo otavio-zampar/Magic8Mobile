@@ -5,7 +5,7 @@ import java.util.Random;
 public class ChatGPT2 {
 
     public static String realPromptBelieveIt(){
-        String str[] = {
+        String[] str = {
                 "A resposta está nebulosa, tente novamente.",
                 "Pergunte novamente mais tarde.",
                 "Melhor não te dizer agora.",
@@ -85,7 +85,7 @@ public class ChatGPT2 {
     }
 
     public static String getVoice(){
-        String str[] = {
+        String[] str = {
                 "pt-br-x-afs#female_1-local",
                 "pt-br-x-afs#female_2-local",
                 "pt-br-x-afs#female_3-local",

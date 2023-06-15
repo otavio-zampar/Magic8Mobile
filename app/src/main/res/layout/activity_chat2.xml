@@ -1,136 +1,118 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/LL"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_login"
-        tools:context=".ConversasChat">
 
-        <View
-            android:id="@+id/navbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.07"
-            android:background="@color/Purple"
-            android:foregroundGravity="top"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="50dp"
+            tools:context=".ConversasChat"
+            android:layout_weight="0">
 
-        <EditText
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.5"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.07"
-            android:layout_margin="10dp"
-            android:text="Título"
-            android:gravity="center"
-            android:textColor="@color/White_text"
-            android:textSize="18sp"
-            android:background="@drawable/edittext_no_underline"
-            app:layout_constraintBottom_toBottomOf="@id/navbar"
-            app:layout_constraintStart_toStartOf="@id/navbar"
-            app:layout_constraintEnd_toEndOf="@id/navbar"
-            app:layout_constraintTop_toTopOf="@id/navbar" />
+            <View
+                android:id="@+id/navbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/NewPurple"
+                android:foregroundGravity="top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/imgSidebar"
-            android:layout_width="60dp"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.07"
-            android:src="@drawable/ic_back_arrow"
-            app:layout_constraintStart_toStartOf="@id/navbar"
-            app:layout_constraintTop_toTopOf="@id/navbar"
-            tools:ignore="SpeakableTextPresentCheck"
-            android:background="@color/Purple"/>
+            <EditText
+
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:autofillHints="Mensagem para mandar para o Bot"
+                android:background="@drawable/edittext_no_underline"
+                android:gravity="center"
+                android:inputType="textAutoComplete"
+                android:text="@string/titulo"
+                android:textColor="@color/White_text"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/navbar"
+                app:layout_constraintEnd_toEndOf="@id/navbar"
+                app:layout_constraintStart_toStartOf="@id/navbar"
+                app:layout_constraintTop_toTopOf="@id/navbar"
+                app:layout_constraintWidth_percent="0.5"
+                tools:ignore="LabelFor" />
+
+            <ImageButton
+                android:id="@+id/imgSidebar"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:background="@color/NewPurple"
+                android:contentDescription="@string/back_to_conversas"
+                android:src="@drawable/ic_back_arrow"
+                app:layout_constraintStart_toStartOf="@id/navbar"
+                app:layout_constraintTop_toTopOf="@id/navbar"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
-            android:id="@+id/scrollView3"
+            android:id="@+id/SV"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.8"
-            app:layout_constraintBottom_toTopOf="@id/EndBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/navbar"
-            app:layout_constraintVertical_bias="0.0">
-
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_login"
+            android:layout_weight="1">
             <LinearLayout
                 android:id="@+id/textLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <!-- Aqui você pode adicionar as mensagens da conversa dinamicamente -->
-
-                <!-- Exemplo de uma mensagem de entrada -->
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    style="@style/UsrComponents"-->
-<!--                    android:text="Olá Chat!" />-->
-
-                <!-- Exemplo de uma mensagem de saída -->
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                   style="@style/ChatComponents"-->
-<!--                    android:text="Olá! Tudo bem?" />-->
-
-                <!-- Adicione mais mensagens conforme necessário -->
-
             </LinearLayout>
         </ScrollView>
-
-        <View
-            android:id="@+id/EndBar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.13"
-            android:layout_alignParentBottom="true"
-            android:background="@color/Purple"
-            android:elevation="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_login"
+            tools:context=".ConversasChat"
+            android:layout_weight="0">
+            <View
+                android:id="@+id/EndBar"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/NewPurple"
+                android:elevation="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/message_input"
-            android:elevation="10dp"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.8"
-            android:layout_height="60dp"
-            android:hint="Digite a sua mensagem"
-            android:textColorHint="@color/Gray_text"
-            android:textColor="@color/black_text"
-            android:textSize="18dp"
-            android:background="@color/Gray_highlight"
-            android:padding="8dp"
-            android:layout_marginLeft="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/send_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/EndBar"
-            app:layout_constraintTop_toTopOf="@id/EndBar"/>
+            <EditText
+                android:id="@+id/message_input"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/Gray_back2"
+                android:elevation="10dp"
+                android:gravity="center_vertical"
+                android:hint="@string/digite_a_sua_mensagem"
+                android:padding="8dp"
+                android:textColor="@color/White_text"
+                android:textColorHint="#78909C"
+                android:textSize="18sp"
+                android:drawableRight="@drawable/baseline_send_24"
 
-        <ImageButton
-            android:id="@+id/send_button"
-            android:elevation="20dp"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.15"
-            android:layout_height="60dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/baseline_send_24"
-            android:background="@color/Purple"
-            app:layout_constraintBottom_toBottomOf="@id/EndBar"
-            app:layout_constraintTop_toTopOf="@id/EndBar"
-            app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintBottom_toBottomOf="@id/EndBar"
+                app:layout_constraintEnd_toEndOf="@id/EndBar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/EndBar"
+                app:layout_constraintWidth_percent="0.93"
+                android:autofillHints="Texto para enviar para o BOT"
+                android:inputType="textAutoComplete" />
 
-</androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+

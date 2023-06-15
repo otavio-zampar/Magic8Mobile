@@ -34,7 +34,7 @@ import java.util.Objects;
 
 public class ConversasChat extends AppCompatActivity {
 
-    private View sidebarContainer, imgIconBorder;
+    private View sidebarContainer, imgIconBorder, containerSenha, containerEmail;
     private ImageButton imgOpen, imgIcon;
 
     private TextView titulo, txtEdNome, txtEdSenha;
@@ -42,10 +42,9 @@ public class ConversasChat extends AppCompatActivity {
     private AppCompatButton confirmaEdit;
     private boolean sidebarOpen = false;
     private static final int REQUEST_PERMISSION = 1;
-    private ActivityResultLauncher<String> requestPermissionLauncher;
     private ActivityResultLauncher<Intent> galleryLauncher;
 
-    private int Nconversas = 0;
+
 //    private MediaPlayer bckg;
 //    private Bitmap yourSelectedImage;
 
@@ -61,6 +60,8 @@ public class ConversasChat extends AppCompatActivity {
         editSenha = findViewById(R.id.editSenha);
         editNome = findViewById(R.id.editNome);
         imgIcon = findViewById(R.id.imgIcon);
+        containerSenha = findViewById(R.id.ContainerSenha);
+        containerEmail = findViewById(R.id.ContainerEmail);
 
     }
 
@@ -87,125 +88,118 @@ public class ConversasChat extends AppCompatActivity {
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Uh Oh, algo deu errado na sidebar!", Toast.LENGTH_SHORT).show();
         }
-        DBHelper DB = new DBHelper(getApplicationContext());
-        int UserID = DB.getID(userEMail);
+        try (DBHelper DB = new DBHelper(getApplicationContext())){
+            int UserID = DB.getID(userEMail);
 
-        if (!userEMail.isEmpty()) {
-            userName.setText(DB.getUsername(userEMail));
-        } else{
-            userName.setText("False ID");
-        }
+            if (!userEMail.isEmpty()) {
+                userName.setText(DB.getUsername(userEMail));
+            } else{
+                userName.setText(R.string.FalseID);
+            }
 
-        // for every row in DB create a button and increment to Nconversas with name "conversas(nome)"
-        for (int id = 0; id < DB.getConversaRows(UserID); id = id+1){
-            AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
-            NewButton.setText(DB.getCvsName(UserID, id));
-            final int id2 = id;
-            NewButton.setOnClickListener(view -> {
-                Intent i = new Intent(getApplicationContext(), chat.class);
-                i.putExtra("ConvID", id2);
-                i.putExtra("UserID", UserID);
-                startActivity(i);
-            });
-
-            Nconversas = id+1;
-//            Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
-        }
-
-        imgEdit.setOnClickListener(view -> {
-            Toast.makeText(this, "AAAAAAAA", Toast.LENGTH_SHORT).show();
-        });
-
-        imgAdd.setOnClickListener(v -> {
-            if (Nconversas <= 8) {
-                Nconversas = Nconversas+1;
-                AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout));
+            // for every row in DB create a button and increment to Nconversas with name "conversas(nome)"
+            for (int id = 0; id < DB.getConversaRows(UserID); id = id+1){
+                AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout, UserID, DB));
+                NewButton.setText(DB.getCvsName(UserID, id));
+                final int id2 = id;
                 NewButton.setOnClickListener(view -> {
-
-                    Nconversas= Nconversas+1;
-                    if(!(DB.insertConversas(UserID, ("Conversa #" + Nconversas)))){
-                        Toast.makeText(this, "Não foi possível criar a conversa", Toast.LENGTH_SHORT).show();
-                    }
-
                     Intent i = new Intent(getApplicationContext(), chat.class);
-                    i.putExtra("ConvID", DB.getConvID(("Conversa #" + Nconversas)));
+                    i.putExtra("ConvID", id2);
                     i.putExtra("UserID", UserID);
                     startActivity(i);
                 });
-            }else{
-                Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        imgOpen.setOnClickListener(view -> openSidebar());
-
-        imgDel.setOnClickListener(view -> {
-            if (DB.nuke(3)){
-                Toast.makeText(imgDel.getContext(), "Apagado todas as conversas", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(imgDel.getContext(), "Erro ao deletar Todas as Linhas do banco... YAY", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btnNovaConversa.setOnClickListener(view -> {
-
-            Intent i = new Intent(getApplicationContext(), chat.class);
-
-            Nconversas= Nconversas+1;
-            if(!(DB.insertConversas(UserID, ("Conversa #" + Nconversas)))){
-                Toast.makeText(this, "Não foi possível criar a conversa", Toast.LENGTH_SHORT).show();
+    //            Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
             }
 
-            // aqui nao deveria estar retornando -1
-            i.putExtra("ConvID", DB.getConvID(("Conversa #" + Nconversas)));
-            Toast.makeText(this, String.valueOf(DB.getConvID(("Conversa #" + Nconversas))), Toast.LENGTH_SHORT).show();
-            i.putExtra("UserID", UserID);
-            startActivity(i);
+            imgEdit.setOnClickListener(view -> Toast.makeText(this, "AAAAAAAA", Toast.LENGTH_SHORT).show());
 
-        });
+            imgAdd.setOnClickListener(v -> {
+                if (DB.getConversaRows(UserID) <= 8) {
+                    AppCompatButton NewButton = findViewById(createButton(btnNovaConversa, parentLayout, UserID, DB));
+                    NewButton.setOnClickListener(view -> {
 
-        confirmaEdit.setOnClickListener(view -> {
-            if (!editSenha.getText().toString().equals("") && !confirmarSenha.getText().toString().equals("")) {
-                if (DB.checkSenha(confirmarSenha.getText().toString())) {
-                    DB.editSenha(UserID, editSenha.getText().toString());
-                    Toast.makeText(getApplicationContext(), "Senha editada com sucesso.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Não foi possível editar a senha", Toast.LENGTH_SHORT).show();
+                        if(!(DB.insertConversas(UserID, ("Conversa " + (DB.getConversaRows(UserID)+1))))){
+                            Toast.makeText(this, "Não foi possível criar a conversa", Toast.LENGTH_SHORT).show();
+                        }
+
+                        Intent i = new Intent(getApplicationContext(), chat.class);
+                        i.putExtra("ConvID", DB.getConversaRows(UserID));
+                        i.putExtra("UserID", UserID);
+                        startActivity(i);
+                    });
+                }else{
+                    Toast.makeText(imgAdd.getContext(), "Limite de 9 conversas atingido!", Toast.LENGTH_SHORT).show();
                 }
-            }
+            });
 
-            if (!editNome.getText().toString().equals("")){
-                DB.editUN(UserID, editNome.getText().toString());
-                Toast.makeText(getApplicationContext(), "Usuário editado com sucesso.", Toast.LENGTH_SHORT).show();
-            }
-        });
+            imgOpen.setOnClickListener(view -> openSidebar());
 
-        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-            if (isGranted) {
-                openGallery();
-            } else {
-                Toast.makeText(this, "A permissão é necessária para mudar a imagem.", Toast.LENGTH_SHORT).show();
-            }
-        });
+            imgDel.setOnClickListener(view -> {
+                if (DB.nuke(3)){
+                    Toast.makeText(imgDel.getContext(), "Apagado todas as conversas", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(imgDel.getContext(), "Erro ao deletar Todas as Linhas do banco... YAY", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        // Create the ActivityResultLauncher for launching the gallery intent
-        galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == RESULT_OK) {
-                Intent data = result.getData();
-                Uri selectedImageUri = data.getData();
-                imgIcon.setImageURI(selectedImageUri);
+            btnNovaConversa.setOnClickListener(view -> {
 
-            }
-        });
+                Intent i = new Intent(getApplicationContext(), chat.class);
 
-        imgIcon.setOnClickListener(view -> {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                openGallery();
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
-            }
+                if(!(DB.insertConversas(UserID, ("Conversa " + (DB.getConversaRows(UserID)+1))))){
+                    Toast.makeText(this, "Não foi possível criar a conversa", Toast.LENGTH_SHORT).show();
+                }
 
-        });
+                i.putExtra("ConvID", DB.getConversaRows(UserID));
+                i.putExtra("UserID", UserID);
+                startActivity(i);
+
+            });
+
+            confirmaEdit.setOnClickListener(view -> {
+                if (!editSenha.getText().toString().equals("") && !confirmarSenha.getText().toString().equals("")) {
+                    if (DB.checkSenha(confirmarSenha.getText().toString())) {
+                        DB.editSenha(UserID, editSenha.getText().toString());
+                        Toast.makeText(getApplicationContext(), "Senha editada com sucesso.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Não foi possível editar a senha", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                if (!editNome.getText().toString().equals("")){
+                    DB.editUN(UserID, editNome.getText().toString());
+                    Toast.makeText(getApplicationContext(), "Usuário editado com sucesso.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    openGallery();
+                } else {
+                    Toast.makeText(this, "A permissão é necessária para mudar a imagem.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Create the ActivityResultLauncher for launching the gallery intent
+            galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent data = result.getData();
+                    assert data != null;
+                    Uri selectedImageUri = data.getData();
+                    imgIcon.setImageURI(selectedImageUri);
+
+                }
+            });
+
+            imgIcon.setOnClickListener(view -> {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                } else {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
+                }
+
+            });
+        }
     }
 
     @Override
@@ -222,11 +216,11 @@ public class ConversasChat extends AppCompatActivity {
     }
 
     @SuppressLint({"ResourceType", "DefaultLocale"})
-    protected int createButton(AppCompatButton btnNovaConversa, LinearLayout parentLayout) {
+    protected int createButton(AppCompatButton btnNovaConversa, LinearLayout parentLayout, int UserID, DBHelper DB) {
         ContextThemeWrapper newContext = new ContextThemeWrapper(getApplicationContext(), R.style.BTNComponents);
         AppCompatButton newButton = new AppCompatButton(newContext);
         newButton.setId(View.generateViewId());
-        newButton.setText(String.format("Nova Conversa #%d", Nconversas));
+        newButton.setText(String.format("Conversa ", DB.getConversaRows(UserID)));
         newButton.setGravity(Gravity.CENTER);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -270,6 +264,8 @@ public class ConversasChat extends AppCompatActivity {
         txtEdSenha.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
         confirmaEdit.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
         imgIcon.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        containerEmail.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        containerSenha.animate().translationX(sidebarContainer.getWidth()).setDuration(300).setListener(null);
         sidebarOpen = true;
     }
 
@@ -294,6 +290,8 @@ public class ConversasChat extends AppCompatActivity {
         txtEdNome.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
         confirmaEdit.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
         imgIcon.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        containerEmail.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
+        containerSenha.animate().translationX(-sidebarContainer.getWidth()).setDuration(300).setListener(null);
 
     }
 
@@ -332,9 +330,8 @@ public class ConversasChat extends AppCompatActivity {
         if (requestCode == REQUEST_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGallery();
-            } else {
-                // Permission denied, handle accordingly
             }
+
         }
     }
 

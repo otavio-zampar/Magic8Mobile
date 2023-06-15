@@ -1,7 +1,6 @@
 <resources>
 
     <string name="enter">Enviar</string>
-    <string name="chat_title">uhn</string>
     <string name="message_hint">Digite a sua mensagem: </string>
 
     <string name="app_name">ChatGPT</string>
@@ -13,5 +12,21 @@
     <string name="login">Login</string>
     <string name="usuario">Usuário</string>
     <string name="cadastro">Não possui uma conta? Cadastre-se Aqui!</string>
+    <string name="MsgsAqui">Aonde fica as mensagens de resposta do BOT</string>
+    <string name="send_button">Envia a Mensagem</string>
+    <string name="titulo">Não é para aparecer</string>
+    <string name="back_to_conversas">Back to conversas</string>
+    <string name="digite_a_sua_mensagem">Digite a sua mensagem...</string>
+    <string name="FalseID">False ID</string>
+    <string name="setText">Nova Conversa</string>
+    <string name="unfocus">Just to Unfocus the screen</string>
+    <string name="cadastrar">CADASTRAR</string>
+    <string name="editar_nome">Editar Nome:</string>
+    <string name="nome">Nome...</string>
+    <string name="editar_senha">Editar senha:</string>
+    <string name="senha_nova">Senha nova...</string>
+    <string name="senha_antiga">Senha Antiga...</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="editar_usu_rio">EDITAR USUÁRIO</string>
 
 </resources>

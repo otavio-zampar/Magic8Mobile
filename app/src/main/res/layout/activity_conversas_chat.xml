@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/Purple"
+            android:background="@color/NewPurple"
             android:foregroundGravity="top"
             />
 
@@ -28,6 +28,8 @@
             android:id="@+id/textviewuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:fontFamily="@font/roboto_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/navbar"
@@ -41,8 +43,8 @@
             android:id="@+id/sidebarContainer"
             app:layout_constraintRight_toLeftOf="parent"
             android:visibility="invisible"
-            android:elevation="100dp"
-            android:background="@color/Purple"/>
+            android:elevation="99dp"
+            android:background="@color/NewPurple"/>
 
         <ImageButton
             android:id="@+id/imgIcon"
@@ -78,18 +80,35 @@
             app:layout_constraintTop_toBottomOf="@id/imgIcon"
             style="@style/textWhiteComponents"
             android:elevation="101dp"
-            android:text="EDITAR USUÁRIO"/>
+            android:text="@string/editar_usu_rio"/>
+
+        <View
+            android:id="@+id/ContainerEmail"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.55"
+            android:layout_height="150dp"
+            android:padding="15dp"
+            android:layout_marginTop="20dp"
+            style="@style/ContainerLoginComponents2"
+            android:elevation="100dp"
+            app:layout_constraintStart_toStartOf="@id/sidebarContainer"
+            app:layout_constraintEnd_toEndOf="@id/sidebarContainer"
+            app:layout_constraintTop_toBottomOf="@id/titulo"
+            app:layout_constraintBottom_toBottomOf="@id/editNome"/>
+
 
             <TextView
                 android:id="@+id/textEditNome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@id/titulo"
-                app:layout_constraintRight_toRightOf="@id/titulo"
+                app:layout_constraintLeft_toLeftOf="@id/ContainerEmail"
+                app:layout_constraintRight_toRightOf="@id/ContainerEmail"
                 app:layout_constraintTop_toBottomOf="@id/titulo"
+                app:layout_constraintBottom_toTopOf="@id/editNome"
+            android:layout_marginTop="20dp"
                 style="@style/textWhiteComponents"
                 android:elevation="101dp"
-                android:text="Editar Nome:"/>
+                android:text="@string/editar_nome"/>
 
             <EditText
                 android:id="@+id/editNome"
@@ -97,23 +116,41 @@
                 app:layout_constraintWidth_percent="0.5"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                app:layout_constraintLeft_toLeftOf="@id/textEditNome"
-                app:layout_constraintRight_toRightOf="@id/textEditNome"
+                app:layout_constraintLeft_toLeftOf="@id/ContainerEmail"
+                app:layout_constraintRight_toRightOf="@id/ContainerEmail"
                 app:layout_constraintTop_toBottomOf="@id/textEditNome"
+                app:layout_constraintBottom_toBottomOf="@id/ContainerEmail"
                 style="@style/textComponents"
                 android:elevation="101dp"
-                android:hint="Nome..."/>
+                android:hint="@string/nome"/>
+
+        <View
+            android:id="@+id/ContainerSenha"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.55"
+            android:layout_height="200dp"
+            android:padding="15dp"
+            android:layout_marginTop="20dp"
+            style="@style/ContainerLoginComponents2"
+            android:elevation="100dp"
+            app:layout_constraintStart_toStartOf="@id/sidebarContainer"
+            app:layout_constraintEnd_toEndOf="@id/sidebarContainer"
+            app:layout_constraintTop_toBottomOf="@id/editNome"
+            app:layout_constraintBottom_toBottomOf="@id/ConfirmarSenha"/>
 
         <TextView
             android:id="@+id/textEditSenha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/editNome"
-            app:layout_constraintRight_toRightOf="@id/editNome"
-            app:layout_constraintTop_toBottomOf="@id/editNome"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            app:layout_constraintLeft_toLeftOf="@id/ContainerSenha"
+            app:layout_constraintRight_toRightOf="@id/ContainerSenha"
+            app:layout_constraintTop_toTopOf="@id/ContainerSenha"
+            app:layout_constraintBottom_toTopOf="@id/editSenha"
             style="@style/textWhiteComponents"
             android:elevation="101dp"
-            android:text="Editar senha:"/>
+            android:text="@string/editar_senha"/>
 
         <EditText
             android:id="@+id/editSenha"
@@ -121,24 +158,28 @@
             app:layout_constraintWidth_percent="0.5"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            app:layout_constraintLeft_toLeftOf="@id/textEditSenha"
-            app:layout_constraintRight_toRightOf="@id/textEditSenha"
+            android:layout_margin="0dp"
+            app:layout_constraintLeft_toLeftOf="@id/ContainerSenha"
+            app:layout_constraintRight_toRightOf="@id/ContainerSenha"
             app:layout_constraintTop_toBottomOf="@id/textEditSenha"
+            app:layout_constraintBottom_toTopOf="@id/ConfirmarSenha"
             style="@style/textComponents"
             android:elevation="101dp"
-            android:hint="Senha nova..."/>
+            android:hint="@string/senha_nova"/>
         <EditText
             android:id="@+id/ConfirmarSenha"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent="0.5"
             android:layout_height="wrap_content"
             android:visibility="invisible"
+            android:layout_margin="0dp"
             app:layout_constraintLeft_toLeftOf="@id/editSenha"
             app:layout_constraintRight_toRightOf="@id/editSenha"
             app:layout_constraintTop_toBottomOf="@id/editSenha"
+            app:layout_constraintBottom_toBottomOf="@id/ContainerSenha"
             style="@style/textComponents"
             android:elevation="101dp"
-            android:hint="Senha Antiga..."/>
+            android:hint="@string/senha_antiga"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/BTNconfirmarEdit"
@@ -154,7 +195,7 @@
             android:stateListAnimator="@null"
             android:elevation="101dp"
             android:textSize="18sp"
-            android:text="Confirmar"/>
+            android:text="@string/confirmar"/>
 
         <ImageButton
             android:id="@+id/imgSidebar"
@@ -201,7 +242,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/Purple"
+            android:background="@color/NewPurple"
 
             android:elevation="10dp"
             android:layout_alignParentBottom="true"
@@ -226,7 +267,7 @@
             android:layout_height="60dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/Purple"
+            android:background="@color/NewPurple"
             android:src="@drawable/baseline_delete_24"
             app:layout_constraintBottom_toBottomOf="@id/EndBar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -239,7 +280,7 @@
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/Purple"
+            android:background="@color/NewPurple"
             android:src="@drawable/baseline_create_24"
             app:layout_constraintBottom_toBottomOf="@id/EndBar"
             app:layout_constraintStart_toStartOf="parent"
@@ -250,7 +291,7 @@
             android:id="@+id/add"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/Purple"
+            android:background="@color/NewPurple"
             android:src="@drawable/baseline_add_24"
             app:layout_constraintBottom_toBottomOf="@id/circle"
             app:layout_constraintEnd_toEndOf="@id/circle"
