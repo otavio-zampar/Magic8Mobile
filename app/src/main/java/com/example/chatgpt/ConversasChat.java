@@ -15,7 +15,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+//import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,16 +36,18 @@ public class ConversasChat extends AppCompatActivity {
 
     private View sidebarContainer, imgIconBorder, containerSenha, containerEmail;
     private ImageButton imgOpen, imgIcon;
+    private LinearLayout parentLayout;
 
-    private TextView titulo, txtEdNome, txtEdSenha;
+    private TextView titulo, txtEdNome, txtEdSenha, userName;
     private EditText editNome, editSenha, confirmarSenha;
-    private AppCompatButton confirmaEdit;
+    private AppCompatButton confirmaEdit, btnNovaConversa;
     private boolean sidebarOpen = false;
     private static final int REQUEST_PERMISSION = 1;
+    private String userEMail;
     private ActivityResultLauncher<Intent> galleryLauncher;
 
 
-//    private MediaPlayer bckg;
+    private MediaPlayer bckg;
 //    private Bitmap yourSelectedImage;
 
     private void getSidebarIds(){
@@ -69,20 +71,20 @@ public class ConversasChat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String userEMail = intent.getStringExtra("userEmail");
+        userEMail = intent.getStringExtra("userEmail");
         Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_conversas_chat);
-        AppCompatButton btnNovaConversa = findViewById(R.id.btnAddConversa);
-        TextView userName = findViewById(R.id.textviewuser);
+        btnNovaConversa = findViewById(R.id.btnAddConversa);
+        userName = findViewById(R.id.textviewuser);
         ImageButton imgAdd = findViewById(R.id.add);
         ImageButton imgDel = findViewById(R.id.trash);
-//        bckg = MediaPlayer.create(getApplicationContext(), R.raw.wii_shop_bossa_nova);
-//        bckg.setVolume(0.2F, 0.2F);
-//        bckg.setLooping(true);
-//        bckg.start();
+        bckg = MediaPlayer.create(getApplicationContext(), R.raw.wii_shop_bossa_nova);
+        bckg.setVolume(0.2F, 0.2F);
+        bckg.setLooping(true);
+        bckg.start();
 
         ImageButton imgEdit = findViewById(R.id.edit);
-        LinearLayout parentLayout = findViewById(R.id.parentLayout);
+        parentLayout = findViewById(R.id.parentLayout);
         try {
             getSidebarIds();
         }catch (Exception e){
@@ -207,7 +209,7 @@ public class ConversasChat extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        bckg.start();
+        bckg.start();
 
     }
 
@@ -217,13 +219,12 @@ public class ConversasChat extends AppCompatActivity {
         startActivity(i);
     }
 
-
-
     @Override
     protected void onPause() {
         super.onPause();
-//        bckg.stop();
+        bckg.stop();
     }
+
 
     @SuppressLint({"ResourceType", "DefaultLocale"})
     protected int createButton(AppCompatButton btnNovaConversa, LinearLayout parentLayout, int UserID, DBHelper DB) {
@@ -239,7 +240,6 @@ public class ConversasChat extends AppCompatActivity {
         );
 
         int dp25 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,  20, getResources().getDisplayMetrics());
-        int dp5 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
 
         layoutParams.setMargins(dp25, dp25, dp25, 0);
         newButton.setLayoutParams(layoutParams);
