@@ -111,7 +111,9 @@ public class ConversasChat extends AppCompatActivity {
     //            Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
             }
 
-            imgEdit.setOnClickListener(view -> Toast.makeText(this, "AAAAAAAA", Toast.LENGTH_SHORT).show());
+            imgEdit.setOnClickListener(view -> {
+                Toast.makeText(this, "AAAAAAAAA", Toast.LENGTH_SHORT).show();
+                });
 
             imgAdd.setOnClickListener(v -> {
                 if (DB.getConversaRows(UserID) <= 8) {
@@ -210,6 +212,14 @@ public class ConversasChat extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), formLogin.class);
+        startActivity(i);
+    }
+
+
+
+    @Override
     protected void onPause() {
         super.onPause();
 //        bckg.stop();
@@ -228,16 +238,15 @@ public class ConversasChat extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
 
-        int dp25 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
+        int dp25 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,  20, getResources().getDisplayMetrics());
         int dp5 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
 
-        layoutParams.setMargins(dp25, dp5, dp25, 0);
+        layoutParams.setMargins(dp25, dp25, dp25, 0);
         newButton.setLayoutParams(layoutParams);
         parentLayout.addView(newButton, 0);
         LinearLayout.LayoutParams newLayoutParams = (LinearLayout.LayoutParams) btnNovaConversa.getLayoutParams();
-        newLayoutParams.topMargin = dp5;
+        newLayoutParams.topMargin = dp25;
         btnNovaConversa.setLayoutParams(newLayoutParams);
-
         return newButton.getId();
     }
 

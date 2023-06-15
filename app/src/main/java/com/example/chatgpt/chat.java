@@ -1,5 +1,6 @@
 package com.example.chatgpt;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,23 +31,27 @@ import java.util.UUID;
 public class chat extends AppCompatActivity {
 
     TextToSpeech TTS;
+    int UserID = -1;
     final Locale myLocale = new Locale("pt", "BR");
 
+
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat2);
         Objects.requireNonNull(getSupportActionBar()).hide();
         Intent i = getIntent();
         int ConvID = i.getIntExtra("ConvID", -1);
-        int UserID = i.getIntExtra("UserID", -1);
+        UserID = i.getIntExtra("UserID", -1);
 
         try (DBHelper DB = new DBHelper(getApplicationContext())) {
             EditText title = findViewById(R.id.title);
             title.setOnFocusChangeListener((view, b) -> {
                 if (!b) {
                     String a = title.getText().toString();
+                    // literalmente só nao esta editando
                     DB.editCVSname(ConvID, a);
-                    Toast.makeText(chat.this, ConvID + ", " + a, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(chat.this, ConvID + ", " + a + ", " + DB.getCvsName(UserID, ConvID), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -54,7 +59,7 @@ public class chat extends AppCompatActivity {
             EditText message_input = findViewById(R.id.message_input);
             LinearLayout parentLayout = findViewById(R.id.textLayout);
 
-            // for every row in DB create a button and increment to Nconversas with name "conversas(nome)"
+            // for every row in DB create a button
             for (int id = 0; id < DB.getMsgsRows(ConvID); id = id + 1) {
                 int MsgUsrID = createUserTextView(DB.getPrompt(ConvID, id), parentLayout);
                 int MsgChatID = createChatTextView2(DB.getAnswer(ConvID, id), parentLayout);

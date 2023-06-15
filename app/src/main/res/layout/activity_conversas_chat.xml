@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:textColor="@color/White_text"
             android:fontFamily="@font/roboto_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,8 +38,7 @@
         </TextView>
 
         <View
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.6"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:id="@+id/sidebarContainer"
             app:layout_constraintRight_toLeftOf="parent"
@@ -84,8 +84,7 @@
 
         <View
             android:id="@+id/ContainerEmail"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.55"
+            android:layout_width="250dp"
             android:layout_height="150dp"
             android:padding="15dp"
             android:layout_marginTop="20dp"
@@ -105,29 +104,26 @@
                 app:layout_constraintRight_toRightOf="@id/ContainerEmail"
                 app:layout_constraintTop_toBottomOf="@id/titulo"
                 app:layout_constraintBottom_toTopOf="@id/editNome"
-            android:layout_marginTop="20dp"
                 style="@style/textWhiteComponents"
                 android:elevation="101dp"
                 android:text="@string/editar_nome"/>
 
             <EditText
                 android:id="@+id/editNome"
-                android:layout_width="0dp"
-                app:layout_constraintWidth_percent="0.5"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
                 app:layout_constraintLeft_toLeftOf="@id/ContainerEmail"
                 app:layout_constraintRight_toRightOf="@id/ContainerEmail"
                 app:layout_constraintTop_toBottomOf="@id/textEditNome"
                 app:layout_constraintBottom_toBottomOf="@id/ContainerEmail"
-                style="@style/textComponents"
+                style="@style/textComponents2"
                 android:elevation="101dp"
                 android:hint="@string/nome"/>
 
         <View
             android:id="@+id/ContainerSenha"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.55"
+            android:layout_width="250dp"
             android:layout_height="200dp"
             android:padding="15dp"
             android:layout_marginTop="20dp"
@@ -154,8 +150,7 @@
 
         <EditText
             android:id="@+id/editSenha"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.5"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:visibility="invisible"
             android:layout_margin="0dp"
@@ -163,13 +158,12 @@
             app:layout_constraintRight_toRightOf="@id/ContainerSenha"
             app:layout_constraintTop_toBottomOf="@id/textEditSenha"
             app:layout_constraintBottom_toTopOf="@id/ConfirmarSenha"
-            style="@style/textComponents"
+            style="@style/textComponents2"
             android:elevation="101dp"
             android:hint="@string/senha_nova"/>
         <EditText
             android:id="@+id/ConfirmarSenha"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.5"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:visibility="invisible"
             android:layout_margin="0dp"
@@ -177,14 +171,13 @@
             app:layout_constraintRight_toRightOf="@id/editSenha"
             app:layout_constraintTop_toBottomOf="@id/editSenha"
             app:layout_constraintBottom_toBottomOf="@id/ContainerSenha"
-            style="@style/textComponents"
+            style="@style/textComponents2"
             android:elevation="101dp"
             android:hint="@string/senha_antiga"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/BTNconfirmarEdit"
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.5"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@id/ConfirmarSenha"
             app:layout_constraintRight_toRightOf="@id/ConfirmarSenha"
@@ -211,8 +204,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/navbar"
-            android:layout_marginTop="5dp">
+            app:layout_constraintTop_toBottomOf="@id/navbar">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -220,6 +212,8 @@
                 android:id="@+id/parentLayout">
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnAddConversa"
+                    android:layout_marginBottom="0dp"
+                    android:layout_margin="25dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/BTNComponents"

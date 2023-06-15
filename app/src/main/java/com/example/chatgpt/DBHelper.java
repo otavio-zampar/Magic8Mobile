@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -225,6 +226,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return name;
     }
 
+    @SuppressLint("Range")
+    public int getCvsID(int UML, int t){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("select id from conversas where user = ?", new String[]{String.valueOf(UML)});
+        int id;
+        if (cursor != null && cursor.moveToFirst()){
+            cursor.move(t);
+            id = cursor.getInt(0);
+
+        } else {
+            id = -1;
+        }
+        assert cursor != null;
+        cursor.close();
+        MyDB.close();
+        return id;
+    }
+
     public Bitmap getBitmap(int id){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("select image from users where id = ?", new String[]{String.valueOf(id)});
@@ -281,12 +300,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean editCVSname(int id, String nome){
+    public boolean editCVSname(int id, String nome) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        MyDB.execSQL("UPDATE conversas SET nome = ? WHERE id = ?", new String[]{nome, String.valueOf(id)});
+        MyDB.execSQL("UPDATE conversas SET nome = 'carlosAlberto' WHERE id = ?", new String[]{String.valueOf(id)});
         MyDB.close();
         return true;
     }
+
+
 
     public boolean editUN(int id, String Nome){
         SQLiteDatabase MyDB = this.getWritableDatabase();
